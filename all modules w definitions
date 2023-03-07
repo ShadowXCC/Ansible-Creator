@@ -1,0 +1,465 @@
+These are the plugins in the ansible.builtin collection:
+
+Modules
+add_host module – Add a host (and alternatively a group) to the ansible-playbook in-memory inventory
+
+apt module – Manages apt-packages
+
+apt_key module – Add or remove an apt key
+
+apt_repository module – Add and remove APT repositories
+
+assemble module – Assemble configuration files from fragments
+
+assert module – Asserts given expressions are true
+
+async_status module – Obtain status of asynchronous task
+
+blockinfile module – Insert/update/remove a text block surrounded by marker lines
+
+command module – Execute commands on targets
+
+copy module – Copy files to remote locations
+
+cron module – Manage cron.d and crontab entries
+
+debconf module – Configure a .deb package
+
+debug module – Print statements during execution
+
+dnf module – Manages packages with the dnf package manager
+
+dpkg_selections module – Dpkg package selection selections
+
+expect module – Executes a command and responds to prompts
+
+fail module – Fail with custom message
+
+fetch module – Fetch files from remote nodes
+
+file module – Manage files and file properties
+
+find module – Return a list of files based on specific criteria
+
+gather_facts module – Gathers facts about remote hosts
+
+get_url module – Downloads files from HTTP, HTTPS, or FTP to node
+
+getent module – A wrapper to the unix getent utility
+
+git module – Deploy software (or files) from git checkouts
+
+group module – Add or remove groups
+
+group_by module – Create Ansible groups based on facts
+
+hostname module – Manage hostname
+
+import_playbook module – Import a playbook
+
+import_role module – Import a role into a play
+
+import_tasks module – Import a task list
+
+include module – Include a task list
+
+include_role module – Load and execute a role
+
+include_tasks module – Dynamically include a task list
+
+include_vars module – Load variables from files, dynamically within a task
+
+iptables module – Modify iptables rules
+
+known_hosts module – Add or remove a host from the known_hosts file
+
+lineinfile module – Manage lines in text files
+
+meta module – Execute Ansible ‘actions’
+
+package module – Generic OS package manager
+
+package_facts module – Package information as facts
+
+pause module – Pause playbook execution
+
+ping module – Try to connect to host, verify a usable python and return pong on success
+
+pip module – Manages Python library dependencies
+
+raw module – Executes a low-down and dirty command
+
+reboot module – Reboot a machine
+
+replace module – Replace all instances of a particular string in a file using a back-referenced regular expression
+
+rpm_key module – Adds or removes a gpg key from the rpm db
+
+script module – Runs a local script on a remote node after transferring it
+
+service module – Manage services
+
+service_facts module – Return service state information as fact data
+
+set_fact module – Set host variable(s) and fact(s).
+
+set_stats module – Define and display stats for the current ansible run
+
+setup module – Gathers facts about remote hosts
+
+shell module – Execute shell commands on targets
+
+slurp module – Slurps a file from remote nodes
+
+stat module – Retrieve file or file system status
+
+subversion module – Deploys a subversion repository
+
+systemd module – Manage systemd units
+
+systemd_service module – Manage systemd units
+
+sysvinit module – Manage SysV services.
+
+tempfile module – Creates temporary files and directories
+
+template module – Template a file out to a target host
+
+unarchive module – Unpacks an archive after (optionally) copying it from the local machine
+
+uri module – Interacts with webservices
+
+user module – Manage user accounts
+
+validate_argument_spec module – Validate role argument specs.
+
+wait_for module – Waits for a condition before continuing
+
+wait_for_connection module – Waits until remote system is reachable/usable
+
+yum module – Manages packages with the yum package manager
+
+yum_repository module – Add or remove YUM repositories
+
+Become Plugins
+runas become – Run As user
+
+su become – Substitute User
+
+sudo become – Substitute User DO
+
+Cache Plugins
+jsonfile cache – JSON formatted files.
+
+memory cache – RAM backed, non persistent
+
+Callback Plugins
+default callback – default Ansible screen output
+
+junit callback – write playbook output to a JUnit file.
+
+minimal callback – minimal Ansible screen output
+
+oneline callback – oneline Ansible screen output
+
+tree callback – Save host events to files
+
+Connection Plugins
+local connection – execute on controller
+
+paramiko_ssh connection – Run tasks via python ssh (paramiko)
+
+psrp connection – Run tasks over Microsoft PowerShell Remoting Protocol
+
+ssh connection – connect via SSH client binary
+
+winrm connection – Run tasks over Microsoft’s WinRM
+
+Filter Plugins
+b64decode filter – Decode a base64 string
+
+b64encode filter – Encode a string as base64
+
+basename filter – get a path’s base name
+
+bool filter – cast into a boolean
+
+checksum filter – checksum of input data
+
+combinations filter – combinations from the elements of a list
+
+combine filter – combine two dictionaries
+
+comment filter – comment out a string
+
+dict2items filter – Convert a dictionary into an itemized list of dictionaries
+
+difference filter – the difference of one list from another
+
+dirname filter – get a path’s directory name
+
+expanduser filter – Returns a path with ~ translation.
+
+expandvars filter – expand environment variables
+
+extract filter – extract a value based on an index or key
+
+fileglob filter – explode a path glob to matching files
+
+flatten filter – flatten lists within a list
+
+from_json filter – Convert JSON string into variable structure
+
+from_yaml filter – Convert YAML string into variable structure
+
+from_yaml_all filter – Convert a series of YAML documents into a variable structure
+
+hash filter – hash of input data
+
+human_readable filter – Make bytes/bits human readable
+
+human_to_bytes filter – Get bytes from string
+
+intersect filter – intersection of lists
+
+items2dict filter – Consolidate a list of itemized dictionaries into a dictionary
+
+log filter – log of (math operation)
+
+mandatory filter – make a variable’s existance mandatory
+
+md5 filter – MD5 hash of input data
+
+password_hash filter – convert input password into password_hash
+
+path_join filter – Join one or more path components
+
+permutations filter – permutations from the elements of a list
+
+pow filter – power of (math operation)
+
+product filter – cartesian product of lists
+
+quote filter – shell quoting
+
+random filter – random number or list item
+
+realpath filter – Turn path into real path
+
+regex_escape filter – escape regex chars
+
+regex_findall filter – extract all regex matches from string
+
+regex_replace filter – replace a string via regex
+
+regex_search filter – extract regex match from string
+
+rekey_on_member filter – Rekey a list of dicts into a dict using a member
+
+relpath filter – Make a path relative
+
+root filter – root of (math operation)
+
+sha1 filter – SHA-1 hash of input data
+
+shuffle filter – randomize a list
+
+split filter – split a string into a list
+
+splitext filter – split a path into root and file extension
+
+strftime filter – date formating
+
+subelements filter – retuns a product of a list and it’s elements
+
+symmetric_difference filter – different items from two lists
+
+ternary filter – Ternary operation filter
+
+to_datetime filter – Get datetime from string
+
+to_json filter – Convert variable to JSON string
+
+to_nice_json filter – Convert variable to ‘nicely formatted’ JSON string
+
+to_nice_yaml filter – Convert variable to YAML string
+
+to_uuid filter – namespaced UUID generator
+
+to_yaml filter – Convert variable to YAML string
+
+type_debug filter – show input data type
+
+union filter – union of lists
+
+unique filter – set of unique items of a list
+
+unvault filter – Open an Ansible Vault
+
+urlsplit filter – get components from URL
+
+vault filter – vault your secrets
+
+win_basename filter – Get a Windows path’s base name
+
+win_dirname filter – Get a Windows path’s directory
+
+win_splitdrive filter – Split a Windows path by the drive letter
+
+zip filter – combine list elements
+
+zip_longest filter – combine list elements, with filler
+
+Inventory Plugins
+advanced_host_list inventory – Parses a ‘host list’ with ranges
+
+auto inventory – Loads and executes an inventory plugin specified in a YAML config
+
+constructed inventory – Uses Jinja2 to construct vars and groups based on existing inventory.
+
+generator inventory – Uses Jinja2 to construct hosts and groups from patterns
+
+host_list inventory – Parses a ‘host list’ string
+
+ini inventory – Uses an Ansible INI file as inventory source.
+
+script inventory – Executes an inventory script that returns JSON
+
+toml inventory – Uses a specific TOML file as an inventory source.
+
+yaml inventory – Uses a specific YAML file as an inventory source.
+
+Lookup Plugins
+config lookup – Lookup current Ansible configuration values
+
+csvfile lookup – read data from a TSV or CSV file
+
+dict lookup – returns key/value pair items from dictionaries
+
+env lookup – Read the value of environment variables
+
+file lookup – read file contents
+
+fileglob lookup – list files matching a pattern
+
+first_found lookup – return first file found from list
+
+indexed_items lookup – rewrites lists to return ‘indexed items’
+
+ini lookup – read data from an ini file
+
+inventory_hostnames lookup – list of inventory hosts matching a host pattern
+
+items lookup – list of items
+
+lines lookup – read lines from command
+
+list lookup – simply returns what it is given.
+
+nested lookup – composes a list with nested elements of other lists
+
+password lookup – retrieve or generate a random password, stored in a file
+
+pipe lookup – read output from a command
+
+random_choice lookup – return random element from list
+
+sequence lookup – generate a list based on a number sequence
+
+subelements lookup – traverse nested key from a list of dictionaries
+
+template lookup – retrieve contents of file after templating with Jinja2
+
+together lookup – merges lists into synchronized list
+
+unvault lookup – read vaulted file(s) contents
+
+url lookup – return contents from URL
+
+varnames lookup – Lookup matching variable names
+
+vars lookup – Lookup templated value of variables
+
+Shell Plugins
+cmd shell – Windows Command Prompt
+
+powershell shell – Windows PowerShell
+
+sh shell – POSIX shell (/bin/sh)
+
+Strategy Plugins
+debug strategy – Executes tasks in interactive debug session.
+
+free strategy – Executes tasks without waiting for all hosts
+
+host_pinned strategy – Executes tasks on each host without interruption
+
+linear strategy – Executes tasks in a linear fashion
+
+Test Plugins
+abs test – is the path absolute
+
+all test – are all conditions in a list true
+
+any test – is any conditions in a list true
+
+changed test – did the task require changes
+
+contains test – does the list contain this element
+
+directory test – does the path resolve to an existing directory
+
+exists test – does the path exist, follow symlinks
+
+failed test – did the task fail
+
+falsy test – Pythonic false
+
+file test – does the path resolve to an existing file
+
+finished test – Did async task finish
+
+link test – does the path reference existing symbolic link
+
+link_exists test – does the path exist, no follow
+
+match test – Does string match regular expression from the start
+
+mount test – does the path resolve to mount point
+
+nan test – is this not a number (NaN)
+
+reachable test – Task did not end due to unreachable host
+
+regex test – Does string match regular expression from the start
+
+same_file test – compares two paths to see if they resolve to the same filesystem object
+
+search test – Does string match a regular expression
+
+skipped test – Was task skipped
+
+started test – Was async task started
+
+subset test – is the list a subset of this other list
+
+success test – check task success
+
+superset test – is the list a superset of this other list
+
+truthy test – Pythonic true
+
+unreachable test – Did task end due to the host was unreachable
+
+uri test – is the string a valid URI
+
+url test – is the string a valid URL
+
+urn test – is the string a valid URN
+
+vault_encrypted test – Is this an encrypted vault
+
+version test – compare version strings
+
+Vars Plugins
+host_group_vars vars – In charge of loading group_vars and host_vars
