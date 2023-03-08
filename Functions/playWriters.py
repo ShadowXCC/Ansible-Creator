@@ -1,10 +1,117 @@
+#import playWriterHelpers as PWH
+import menus as menus
+
+#---------------------------------------------------------
+# Variables
+
+baseModuleName = "\tansible.builtin."
+
+#---------------------------------------------------------
+
 def add_host():
-    #add_host module
-    return
+    o = ""
+    #o += PWH.playName()
+    o += "- name: " + input("What would you like to name this play: ") + "\n"
+    o += baseModuleName + "add_host:\n"
+    o += "\t\tname: " + input("\nExample: \"ip:portnumber\"\n" + "Enter the hostname/IP address you are adding a host to: ") + "\n"
+    # groups
+    if input("Would you like to add the \"groups\" parameter to this play? (Y/N): ").lower() == "y":
+        o += "\t\tgroups:"
+        groups = input("Enter the group name(s), with spaces separating multiple group names: ")
+        if " " in groups:
+            o += "\n"
+            gList = groups.split()
+            for item in gList:
+                o += "\t\t- " + item + "\n"
+        else:
+            o += groups
+
+    # ansible_host and ansible_port
+    if input("Does the host you need to reach exist through a tunnel (Y/N): ").lower() == "y":
+        o += "\t\tansible_host: " + input("What is the hostname of the tunnel? ") + "\n"
+        o += "\t\tansible_port: " + input("What is the port number of the tunnel? ") + "\n"
+
+    #Loop    
+    if input("Do you want this play to loop (Y/N): ").lower() == "y":
+        o += "\tloop: " + input("How many times do you want this play to loop: ")
+
+    # # action
+    # o += "\t\t" + "\n"
+    # # async
+    # o += "\t\t" + "\n"
+    # # become
+    # o += "\t\t" + "\n"
+    # # bypasss_host_loop
+    # o += "\t\t" + "\n"
+    # # bypass_task_loop
+    # o += "\t\t" + "\n"
+    # # check_mode
+    # o += "\t\t" + "\n"
+    # # connection
+    # o += "\t\t"  + "\n"
+    # # core
+    # o += "\t\t" + "\n"
+    # # delegation
+    # o += "\t\t" + "\n"
+    # # diff_mode
+    # o += "\t\t" + "\n"
+    # # ignore_conditional
+    # o += "\t\t" + "\n"
+    # # platform
+    # o += "\t\t" + "\n"
+    # # tags
+    # o += "\t\t" + "\n"
+    # # until
+    # o += "\t\t" + "\n"
+    return o
 
 def apt():
-    #apt module
-    return
+    o = ""
+    o += "- name: " + input("What would you like to name this play: ") + "\n"
+    o += "\t\tname:"
+    packages = input("Enter the name(s) of the package(s), with spaces separating multiple package names: ")
+    if " " in packages:
+        o += "\n"
+        pList = packages.split()
+        for item in pList:
+            o += "\t\t- " + item + "\n"
+    else:
+        o += packages
+
+    #state
+    if input("Do you want to specify a required state for these packages? (Y/N)").lower == "y":
+        o += "\t\tstate: "
+        while True:
+            print(menus.aptStatesMenu())
+            choice = input("pick")
+            if choice == "1":
+                o += "present"
+                break
+            elif choice == "2":
+                o += "absent"
+                break
+            elif choice == "3":
+                o += "latest"
+                break
+            elif choice == "4":
+                o += "build-dep"
+                break
+            elif choice == "5":
+                o += "fixed"
+                break
+            else:
+                print("Incorrect Input, please try again.")
+        o += "\n"
+    
+    
+
+
+
+    # allow_change_held_packages allow_downgrade allow_unauthenticated autoclean autoremove cache_valid_time clean deb default release
+    # dpkg_options fail_on_autoremove force force_apt_get install_recommends lock_timeout name only_upgrade policy_rc_d purge update_cache
+    # update_cache_retries update_cache_retry_max_delay upgrade 
+
+    return o
 
 def apt_key():
     #apt_key module

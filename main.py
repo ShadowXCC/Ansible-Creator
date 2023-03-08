@@ -3,9 +3,11 @@ import os
 import Functions.menus as menus
 import Functions.iniInventoryWriter as IIW
 import Functions.yamlInventoryWriter as YIW
+import Functions.playWriters as PW
 
 print("----------------------------------------------------------------------------------------------------------")
 print("WARNING: THIS PROGRAM WILL OVERWRITE ANY FILES IN THIS DIRECTORY NAMED \"inventory.yaml\" or \"playbook.yaml\"")
+print("WARNING: THIS PROGRAM ASSUMES A MINIMAL ANSIBLE VERSION OF 2.0 (January 2016)")
 print("----------------------------------------------------------------------------------------------------------")
 
 print("Hello, welcome to the Ansible Generator")
@@ -54,7 +56,12 @@ while True:
                 choice = input(menus.yamlInvMenu())
                 if choice == "1":
                     name = input("Please enter the title: ")
-                    holder += YIW.writeTitle(name)
+                    if titleAlreadySelected == False:
+                        holder += YIW.writeTitle(name)
+                        titleAlreadySelected = True
+                    elif titleAlreadySelected == True:
+                        holder += "\n" + YIW.writeTitle(name)
+                        titleAlreadySelected = False
 
                 elif choice == "2":
                     host = input("Please enter the hostname/IP: ")
@@ -75,6 +82,12 @@ while True:
                     print("Incorrect input, try again.")
     if cMM == "2":
         print()
+        #print(PW.add_host())
+        
+        # Search for play
+        # Allow user to select from search results
+        # Prompt user for all info need to create proper formatted play
+        # Output play to user and possibly to file if they want
     if cMM.lower() == "x":
         print()
         exit()

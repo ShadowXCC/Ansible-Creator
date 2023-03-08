@@ -30,3 +30,11 @@ def yamlInvMenu():
     m += "Please select an option: "
 
     return m
+
+def aptStatesMenu():
+    m = "\n"
+    m += "1. Present (Make sure that this pacakge is installed)"
+    m += "2. Absent (Make sure that this package is NOT installed)"
+    m += "3. Latest (Make sure that this package is the most up to date available)"
+    m += "4. Build-dep (Make sure that the dependencies for this package are installed)"
+    m += "5. Fixed (???)"
