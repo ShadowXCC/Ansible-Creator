@@ -4,6 +4,7 @@ import Functions.menus as menus
 import Functions.iniInventoryWriter as IIW
 import Functions.yamlInventoryWriter as YIW
 import Functions.playWriters as PW
+import Functions.searchModules as search
 
 print("----------------------------------------------------------------------------------------------------------")
 print("WARNING: THIS PROGRAM WILL OVERWRITE ANY FILES IN THIS DIRECTORY NAMED \"inventory.yaml\" or \"playbook.yaml\"")
@@ -85,6 +86,7 @@ while True:
         #print(PW.add_host())
         
         # Search for play
+        search.searchModules()
         # Allow user to select from search results
         # Prompt user for all info need to create proper formatted play
         # Output play to user and possibly to file if they want
