@@ -32,9 +32,21 @@ def yamlInvMenu():
     return m
 
 def aptStatesMenu():
-    m = "\n"
-    m += "1. Present (Make sure that this pacakge is installed)"
-    m += "2. Absent (Make sure that this package is NOT installed)"
-    m += "3. Latest (Make sure that this package is the most up to date available)"
-    m += "4. Build-dep (Make sure that the dependencies for this package are installed)"
+    m = ""
+    m += "1. Present (Make sure that this pacakge is installed)\n"
+    m += "2. Absent (Make sure that this package is NOT installed)\n"
+    m += "3. Latest (Make sure that this package is the most up to date available)\n"
+    m += "4. Build-dep (Make sure that the dependencies for this package are installed)\n"
     m += "5. Fixed (???)"
+
+    return m
+
+def aptUpgradeMenu():
+    m = ""
+    m += "1. No (Default Value, don't upgrade)\n"
+    m += "2. Yes (Runs an \"aptitude safe-upgrade\")\n"
+    m += "3. Safe (Same functionality as \"Yes\")\n"
+    m += "4. Full (Runs an \"aptitude full-upgrade\")\n"
+    m += "5. Dist (Runs an \"apt-get dist-upgrade\")"
+
+    return m

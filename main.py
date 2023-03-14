@@ -81,15 +81,51 @@ while True:
 
                 else:
                     print("Incorrect input, try again.")
-    if cMM == "2":
-        print()
-        #print(PW.add_host())
-        
+    if cMM == "2":                
+        a = True
+        while a:
+            print("Warning: This search feature assumes an exact match currently. Example, searching for \"apt repository\" will not find \"apt_repository\"")
+            searchTerm = input("What kind of play do you want to create (\"X\" to cancel): ")
+            if searchTerm.lower() != "x":
+                options = search.searchModules(searchTerm)
+
+                print("Matches for \"" + searchTerm + "\":")
+                i = 1
+                for item in options:
+                    print(str(i) + ". " + item + "\n")
+                    i += 1
+                
+                optionLength = len(options)
+                if optionLength > 1:
+                    selection = input("Which option: ")
+                elif optionLength == 1:
+                    selection = 0
+                elif optionLength == 0:
+                    choice = input("Search term not found, try again? (Y/N): ")
+                    if choice.lower == "n":
+                        a = False
+                
+                selection = int(selection)
+
+                if a != False and selection > 0:
+                    module = options[selection - 1]
+
+                    if input("\"" + module + "\" play selected. Is this correct? (Y/N): ").lower() == "y":
+                        print(PW.funcs[module]()) #https://stackoverflow.com/questions/12495218/using-user-input-to-call-functions
+                    else:
+                        if input("Would you like to search again (Y/N): ").lower() != "y":
+                            a = False
+            else:
+                a = False
+
+
+
         # Search for play
-        search.searchModules()
         # Allow user to select from search results
         # Prompt user for all info need to create proper formatted play
         # Output play to user and possibly to file if they want
+
+
     if cMM.lower() == "x":
         print()
         exit()
