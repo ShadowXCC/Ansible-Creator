@@ -1,10 +1,11 @@
-import os
+import sys
 
 import Functions.menus as menus
 import Functions.iniInventoryWriter as IIW
 import Functions.yamlInventoryWriter as YIW
 import Functions.playWriters as PW
 import Functions.searchModules as search
+import Functions.yamlFormatter as formatter
 
 print("----------------------------------------------------------------------------------------------------------")
 print("WARNING: THIS PROGRAM WILL OVERWRITE ANY FILES IN THIS DIRECTORY NAMED \"inventory.yaml\" or \"playbook.yaml\"")
@@ -92,22 +93,23 @@ while True:
                 print("Matches for \"" + searchTerm + "\":")
                 i = 1
                 for item in options:
-                    print(str(i) + ". " + item + "\n")
+                    #add something here to print out when there are no matches
+                    print(str(i) + ". " + item)
                     i += 1
                 
                 optionLength = len(options)
+                selection = -1
                 if optionLength > 1:
-                    selection = input("Which option: ")
+                    selection = input("\nWhich option (1-" + str(i-1) + "): ")
                 elif optionLength == 1:
                     selection = 0
                 elif optionLength == 0:
                     choice = input("Search term not found, try again? (Y/N): ")
                     if choice.lower == "n":
                         a = False
-                
-                selection = int(selection)
 
-                if a != False and selection > 0:
+                if a != False and selection != -1:
+                    selection = int(selection)
                     module = options[selection - 1]
 
                     if input("\"" + module + "\" play selected. Is this correct? (Y/N): ").lower() == "y":
@@ -118,17 +120,20 @@ while True:
             else:
                 a = False
 
-
-
-        # Search for play
-        # Allow user to select from search results
+        # Search for play ✔
+        # Allow user to select from search results ✔
         # Prompt user for all info need to create proper formatted play
-        # Output play to user and possibly to file if they want
+        # Output play to user ✔ and possibly to file if they want
+    
+    if cMM == "3":
+        formatter.dowork(input("What is the name of the file: "))
+        print()
+
 
 
     if cMM.lower() == "x":
         print()
-        exit()
+        sys.exit()
     
     # else:
     #     print("Else1")

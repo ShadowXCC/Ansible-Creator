@@ -14,7 +14,6 @@ def add_host():
     o += PWH.playStart("add_host")
     o += "\t\tname: " + input("\nExample: \"ip:portnumber\"\n" + "Enter the hostname/IP address you are adding a host to: ") + "\n"
     
-    # groups
     if input("Would you like to add the \"groups\" parameter to this play? (Y/N): ").lower() == "y":
         o += "\t\tgroups:"
         groups = input("Enter the group name(s), with spaces separating multiple group names: ")
@@ -26,43 +25,13 @@ def add_host():
         else:
             o += groups
 
-    # ansible_host and ansible_port
     if input("Does the host you need to reach exist through a tunnel (Y/N): ").lower() == "y":
         o += "\t\tansible_host: " + input("What is the hostname of the tunnel? ") + "\n"
         o += "\t\tansible_port: " + input("What is the port number of the tunnel? ") + "\n"
 
-    #Loop    
     if input("Do you want this play to loop (Y/N): ").lower() == "y":
         o += "\tloop: " + input("How many times do you want this play to loop: ")
 
-    # # action
-    # o += "\t\t" + "\n"
-    # # async
-    # o += "\t\t" + "\n"
-    # # become
-    # o += "\t\t" + "\n"
-    # # bypasss_host_loop
-    # o += "\t\t" + "\n"
-    # # bypass_task_loop
-    # o += "\t\t" + "\n"
-    # # check_mode
-    # o += "\t\t" + "\n"
-    # # connection
-    # o += "\t\t"  + "\n"
-    # # core
-    # o += "\t\t" + "\n"
-    # # delegation
-    # o += "\t\t" + "\n"
-    # # diff_mode
-    # o += "\t\t" + "\n"
-    # # ignore_conditional
-    # o += "\t\t" + "\n"
-    # # platform
-    # o += "\t\t" + "\n"
-    # # tags
-    # o += "\t\t" + "\n"
-    # # until
-    # o += "\t\t" + "\n"
     return o
 
 def apt():
@@ -80,7 +49,6 @@ def apt():
 
     
     if input("Do you need more specialized options for the \"apt\" task, 25 questions (Y/N)? ").lower() == "y":
-        #state
         if input("Do you want to specify a required state for these packages (Y/N)? ").lower() == "y":
             o += "\t\tstate: "
 
@@ -199,7 +167,6 @@ def apt_key():
     return o
 
 def apt_repository():
-    #apt_repository module
     o = ""
     o += PWH.playStart("apt_repository")
 
@@ -208,16 +175,12 @@ def apt_repository():
 
     print("\nHelp: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html#parameters")
     o += "\t\trepo: " + input("From the above link, what is the source string for the repository: ") + "\n"
-    # codename
     if input("Do you want to override the distribution codename used for PPA repositories (Y/N)? ").lower() == "y":
         o += "\t\tcodename: " + input("Enter the distribution codename: ") + "\n"
-    # filename
     if input("Do you want to specify the filename of the added repository (Y/N)? ").lower() == "y":
         o += "\t\tfilename: " + input("Enter the filename (without any file extension): ") + "\n"
-    # install_python_apt
     if input("Do you want to automatically try to install the Python apt library (Y/N)? ").lower() == "y":
         o += "\t\tinstall_python_apt: false\n"
-    # mode
     if input("Do you want to set a mode/permission octal for this repo (Y/N)? ").lower() == "y":
         o += "\t\tmode: " + input("Enter the mode/permission octal for this repo (ex: 0644): ") + "\n"
     
@@ -230,254 +193,385 @@ def apt_repository():
     return o
 
 def assemble():
-    #assemble module
     o = ""
     o += PWH.playStart("assemble")
+    o += "\t\tdest: " + input("What do you want to name the output file of this play: ") + "\n"
+    o += "\t\tsrc: " + input("What is the path of the directory that you want \"assembled\": ") + "\n"
 
-    if input("(Y/N)? ").lower() == "y":
-        o += "\t\t: \n"
+    if input("Do you need more specialized options for the \"assemble\" task, 13 questions (Y/N)? ").lower() == "y":
 
-    # attributes 
-    # backup 
-    # decrypt 
-    # deliminiter 
-    # dest 
-    # group 
-    # ignore_hidden 
-    # mode 
-    # owner 
-    # regexp 
-    # remote_src 
-    # selevel 
-    # serole 
-    # setype 
-    # seuser 
-    # src 
-    # unsafe_writes 
-    # validate
+        print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assemble_module.html#parameter-attributes")
+        o += PWH.attributes("Do you want to set any attributes for the resulting file")
+        o += PWH.backup()
+        o += PWH.decrypt()
+        if input("Do you want to specify a delimiter to separate file contents (Y/N)? ").lower() == "y":
+            o += "\t\tdeliminiter: " + input("What delimiter do you want to use: ") + "\n"
+        o += PWH.group()
+        if input("Do you want this operation to include hidden files in the assembling (Y/N)? ").lower() == "y":
+            o += "\t\tignore_hidden: true\n"
+        o += PWH.mode()
+        o += PWH.owner()
+        o += PWH.regexp("Do you want to use a regular expression to specify files to be assembled, using Python syntax")
+        o += PWH.remote_src()
+        o += PWH.selevel()
+        o += PWH.serole()
+        o += PWH.setype()
+        o += PWH.seuser()
+        o += PWH.unsafe_writes()
+        o += PWH.validate()
 
     return o
 
 def Assert():
-    #assert module
+    print("WARNING: This currently only accepts a SINGLE assertion per each play created.")
+
     o = ""
     o += PWH.playStart("assert")
 
-    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assert_module.html
+    assertion = input("What do you want to be asserted: ")
+    o += "\t\tthat:\n\t\t\t- " + assertion + "\n"
+    if input("Do you want to specify a fail message (Y/N)? ").lower() == "y":
+        o += "\t\tfail_msg: " + input("Enter the fail message: ") + "\n"
+    if input("Do you want to specify a success message (Y/N)? ").lower() == "y":
+        o += "\t\tsuccess_msg: " + input("Enter the success message: ") + "\n"
     if input("(Y/N)? ").lower() == "y":
         o += "\t\t: \n"
-    # that
-    # fail_msg 
-    # quiet 
-    # success_msg
 
     return o
 
 def async_status():
-    #async_status module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("async_status")
 
-    if input("(Y/N)? ").lower() == "y":
-        o += "\t\t: \n"
-    
-    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/async_status_module.html
-    # jid
-    # mode
+    o += "\t\tjid: " + input("What is the job or task identifier for the asynchronous task: ") + "\n"
+    if input("Do you want to also clean up the async job cache for the specified ID (Y/N)? ").lower() == "y":
+        o += "\t\tmode: cleanup\n"
     return o
 
 def blockinfile():
     #blockinfile module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("blockinfile")
+
+    # path
 
     if input("(Y/N)? ").lower() == "y":
         o += "\t\t: \n"
+
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want to set any attributes for the file being worked on")
+    o += PWH.backup()
+    # block
+    # create
+    o += PWH.group()
+    # insertafter
+    # insertbefore
+    # marker
+    # marker_begin
+    # marker_end
+    o += PWH.mode()
+    o += PWH.owner()
+    o += PWH.selevel()
+    o += PWH.serole()
+    o += PWH.setype()
+    o += PWH.seuser()
+    o += PWH.stateAbsentPresent()
+    o += PWH.unsafe_writes()
+    o += PWH.validate()
 
     return o
 
 def command():
     #command module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("command")
+
+    # argv
+    # chdir
+    # cmd
+    # creates
+    # free_form
+    # removes
+    # stdin
+    # stdin_add_newline
+    # strip_empty_ends
+
     return o
 
 def copy():
     #copy module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("copy")
+    #dest
+
+    # attributes
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html")
+    o += PWH.attributes("Do you want the copied files to have any specific attributes?")
+    o += PWH.backup()
+    # checksum 
+    # content 
+    o+= PWH.decrypt()
+    # directory_mode 
+    # follow 
+    # force 
+    o += PWH.group()
+    # local_follow 
+    o += PWH.mode()
+    o += PWH.owner()
+    o += PWH.remote_src()    
+    o += PWH.selevel()
+    o += PWH.serole()
+    o += PWH.setype()
+    o += PWH.seuser()
+    # src 
+    o += PWH.unsafe_writes()
+    o += PWH.validate()
+
     return o
 
 def cron():
     #cron module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("cron")
+
+    #name
+
+
+    # backup 
+    o += PWH.backup()
+    # cron_file 
+    # day 
+    # disabled 
+    # env 
+    # hour 
+    # insertafter 
+    # insertbefore 
+    # job 
+    # minute 
+    # month 
+    # special_time 
+    # state 
+    # user 
+    # weekday
+
     return o
 
 def debconf():
     #debconf module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("debconf")
+
+    # name
+
+    # question 
+    # unseen 
+    # value 
+    # vtype
+    vtype = ""
+
+    if vtype == "password":
+        o += "\t\tno_log: true\n"
+
     return o
 
 def debug():
     #debug module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("debug")
+
+    # msg var verbosity
+
     return o
 
 def dnf():
     #dnf module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("dnf")
+    # name
+
+    # allow_downgrade 
+    # allowerasing 
+    # autoremove 
+    # bugfix 
+    # cacheonly 
+    # conf_file 
+    # disable_excludes 
+    # disable_gpg_check 
+    # disable_plugin
+    # disablerepo 
+    # download_dir 
+    # download_only 
+    # enable_plugin 
+    # enablerepo 
+    # exclude 
+    # install_repoquery 
+    # install_weak_deps 
+    # installroot
+    # list 
+    # lock_timeout 
+    # nobest 
+    # releasever 
+    # security 
+    # skip_broken 
+    # sslverify 
+    # state 
+    # update_cache 
+    o += PWH.update_cache()
+    # update_only 
+    # validate_certs
+    o += PWH.validate_certs()
+
+
     return o
 
 def dpkg_selections():
     #dpkg_selections module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("dpkg_selections")
     return o
 
 def expect():
     #expect module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("expect")
     return o
 
 def fail():
     #fail module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("fail")
     return o
 
 def fetch():
     #fetch module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("fetch")
     return o
 
 def file():
     #file module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("file")
     return o
 
 def find():
     #find module
+    o = ""
+    o += PWH.playStart("find")
     return
 
 def gather_facts():
     #gather_facts module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("gather_facts")
     return o
 
 def get_url():
     #get_url module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("get_url")
     return o
 
 def getent():
     #getent module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("getent")
     return o
 
 def git():
     #git module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("git")
     return o
 
 def group():
     #group module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("group")
     return o
 
 def group_by():
     #group_by module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("group_by")
     return o
 
 def hostname():
     #hostname module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("hostname")
     return o
 
 def import_playbook():
     #import_playbook module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("import_playbook")
     return o
 
 def import_role():
     #import_role module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("import_role")
     return o
 
 def import_tasks():
     #import_tasks module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("import_tasks")
     return o
 
 def include():
     #include module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("include")
     return o
 
 def include_role():
     #include_role module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("include_role")
     return o
 
 def include_tasks():
     #include_tasks module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("include_tasks")
     return o
 
 def include_vars():
     #include_vars module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("include_vars")
     return o
 
 def iptables():
     #iptables module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("iptables")
     return o
 
 def known_hosts():
     #known_hosts module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("known_hosts")
     return o
 
 def lineinfile():
     #lineinfile module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("lineinfile")
     return o
 
 def meta():
     #meta module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("meta")
     return o
 
 def package():
     #package module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("package")
     return o
 
 def package_facts():
