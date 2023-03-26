@@ -213,10 +213,7 @@ def assemble():
         o += PWH.owner()
         o += PWH.regexp("Do you want to use a regular expression to specify files to be assembled, using Python syntax")
         o += PWH.remote_src()
-        o += PWH.selevel()
-        o += PWH.serole()
-        o += PWH.setype()
-        o += PWH.seuser()
+        o += PWH.seThings()
         o += PWH.unsafe_writes()
         o += PWH.validate()
 
@@ -271,10 +268,7 @@ def blockinfile():
     # marker_end
     o += PWH.mode()
     o += PWH.owner()
-    o += PWH.selevel()
-    o += PWH.serole()
-    o += PWH.setype()
-    o += PWH.seuser()
+    o += PWH.seThings()
     o += PWH.stateAbsentPresent()
     o += PWH.unsafe_writes()
     o += PWH.validate()
@@ -319,10 +313,7 @@ def copy():
     o += PWH.mode()
     o += PWH.owner()
     o += PWH.remote_src()    
-    o += PWH.selevel()
-    o += PWH.serole()
-    o += PWH.setype()
-    o += PWH.seuser()
+    o += PWH.seThings()
     # src 
     o += PWH.unsafe_writes()
     o += PWH.validate()
@@ -415,10 +406,8 @@ def dnf():
     # skip_broken 
     # sslverify 
     # state 
-    # update_cache 
     o += PWH.update_cache()
     # update_only 
-    # validate_certs
     o += PWH.validate_certs()
 
 
@@ -428,1257 +417,1999 @@ def dpkg_selections():
     #dpkg_selections module
     o = ""
     o += PWH.playStart("dpkg_selections")
+
+    # name
+    # selection
+
     return o
 
 def expect():
     #expect module
     o = ""
     o += PWH.playStart("expect")
+    # command responses
+
+    # chdir
+    # creates
+    # echo
+    # removes
+    # timeout
+
     return o
 
 def fail():
     #fail module
     o = ""
     o += PWH.playStart("fail")
+
+    # msg
+
     return o
 
 def fetch():
     #fetch module
     o = ""
     o += PWH.playStart("fetch")
+
+    # dest src
+
+    # fail_on_missing flat validate_checksum
+
     return o
 
 def file():
     #file module
     o = ""
     o += PWH.playStart("file")
+    #path
+
+    # access_time
+    # access_time_format
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want the created file to have any specific attributes")
+    # follow
+    # force
+    o += PWH.group()
+    o += PWH.mode()
+    # modification_time
+    # modification_time_format
+    o += PWH.owner()
+    # recurse
+    o += PWH.seThings()
+    # src
+    # state
+    o += PWH.unsafe_writes()
+
     return o
 
 def find():
     #find module
     o = ""
     o += PWH.playStart("find")
+    # paths
+
+    # age 
+    # age_stamp 
+    # contains 
+    # depth 
+    # excludes 
+    # file_type 
+    # follow 
+    # get_checksum 
+    # hidden 
+    # patterns 
+    # read_whole_file 
+    # recurse 
+    # size
+    # use_regex
+
     return
 
 def gather_facts():
     #gather_facts module
     o = ""
     o += PWH.playStart("gather_facts")
+
+    #parallel
+
     return o
 
 def get_url():
     #get_url module
     o = ""
     o += PWH.playStart("get_url")
+    # dest
+
+    # attributes 
+    o += PWH.attributes("Do you want the downloaded file to have any specific attributes")
+    o += PWH.backup() 
+    # checksum 
+    # ciphers 
+    # client_cert 
+    # client_key 
+    # decompress 
+    # force 
+    # force_basic_auth 
+    o += PWH.group()
+    # headers
+    # http_agent 
+    o += PWH.mode()
+    o += PWH.owner()
+    o += PWH.seThings()
+    # timeout 
+    # tmp_dest 
+    # unredirected_headers 
+    o += PWH.unsafe_writes()
+    # url 
+    # url_password 
+    # url_username
+    # use_gssapi 
+    # use_netrc 
+    # use_proxy 
+    o += PWH.validate_certs()
+
     return o
 
 def getent():
     #getent module
     o = ""
     o += PWH.playStart("getent")
+    # database
+
+    # fail_key key service split
+
     return o
 
 def git():
     #git module
     o = ""
     o += PWH.playStart("git")
+
+    #dest repo
+
+    # accept_hostkey 
+    # accept_newhostkey 
+    # archive 
+    # archive_prefix 
+    # bare 
+    # clone 
+    # depth 
+    # executable 
+    # force 
+    # gpg_whitelist 
+    # key_file
+    # recursive 
+    # reference 
+    # refspec 
+    # remote 
+    # separate_git_dir 
+    # single_branch 
+    # ssh_opts 
+    # track_submodules 
+    # umask 
+    # update 
+    # verify_commit
+    # version
+
     return o
 
 def group():
     #group module
     o = ""
     o += PWH.playStart("group")
+    # name
+
+    # gid 
+    # local 
+    # non_unique 
+    # state 
+    # system
+
     return o
 
 def group_by():
     #group_by module
     o = ""
     o += PWH.playStart("group_by")
+
+    # key
+    # parents
+
     return o
 
 def hostname():
     #hostname module
     o = ""
     o += PWH.playStart("hostname")
+
+    # name
+    # use
+
     return o
 
 def import_playbook():
     #import_playbook module
     o = ""
     o += PWH.playStart("import_playbook")
+
+    #free-form
+
     return o
 
 def import_role():
     #import_role module
     o = ""
     o += PWH.playStart("import_role")
+    # name
+
+    # allow_duplicates defaults_from handlers_from rolespec_validate tasks_from vars_from
+
     return o
 
 def import_tasks():
     #import_tasks module
     o = ""
     o += PWH.playStart("import_tasks")
+
+    # file free-form
+
     return o
 
 def include():
     #include module
     o = ""
     o += PWH.playStart("include")
+
+    # free-form 
+
     return o
 
 def include_role():
     #include_role module
     o = ""
     o += PWH.playStart("include_role")
+    # name
+
+    # allow_duplicates 
+    # apply 
+    # defaults_from 
+    # handlers_from 
+    # public 
+    # rolespec_validate 
+    # tasks_from 
+    # vars_from
+
     return o
 
 def include_tasks():
     #include_tasks module
     o = ""
     o += PWH.playStart("include_tasks")
+
+    # apply file free-form
+
     return o
 
 def include_vars():
     #include_vars module
     o = ""
     o += PWH.playStart("include_vars")
+
+    # depth 
+    # dir 
+    # extensions 
+    # file 
+    # files_matching
+    # free-form 
+    # hash_behaviour 
+    # ignore_files 
+    # ignore_unknown_extensions 
+    # name 
+
     return o
 
 def iptables():
     #iptables module
     o = ""
     o += PWH.playStart("iptables")
+
+    # action 
+    # chain 
+    # chain_management 
+    # comment 
+    # ctstate 
+    # destination 
+    # destination_port 
+    # destination_ports 
+    # dst_range 
+    # flush
+    # fragment 
+    # gateway 
+    # gid_owner 
+    # goto 
+    # icmp_type 
+    # in_interface 
+    # ip_version 
+    # jump 
+    # limit 
+    # limit_burst 
+    # log_level 
+    # log_prefix
+    # match 
+    # match_set 
+    # match_set_flags 
+    # out_interface 
+    # policy 
+    # protocol 
+    # reject_with 
+    # rule_num 
+    # set_counters 
+    # set_dscp_mark
+    # set_dscp_mark_class
+    # source
+    # source_port
+    # src_range
+    # state
+    # syn
+    # table
+    # tcp_flags(flags flags_set)
+    # to_destination to_ports
+    # to_source
+    # uid_owner
+    # wait
+
     return o
 
 def known_hosts():
     #known_hosts module
     o = ""
     o += PWH.playStart("known_hosts")
+
+    # hash_host 
+    # key 
+    # name 
+    # path 
+    # state
+
     return o
 
 def lineinfile():
     #lineinfile module
     o = ""
     o += PWH.playStart("lineinfile")
+    # path
+
+    o += PWH.attributes("Do you want to specify attributes for the file being worked on")
+    # backrefs
+    o += PWH.backup()
+    # create
+    # firstmatch
+    # group
+    # insertafter
+    # insertbefore
+    # line
+    # mode
+    # others
+    o += PWH.owner()
+    o += PWH.regexp("Do you you want to use a regular expression for this action")
+    # search_string
+    o += PWH.seThings()
+    # state
+    o += PWH.unsafe_writes()
+    o += PWH.validate()
+
     return o
 
 def meta():
     #meta module
     o = ""
     o += PWH.playStart("meta")
+
+    # free_form
+
     return o
 
 def package():
     #package module
     o = ""
     o += PWH.playStart("package")
+
+    # name
+    # state
+
+    # use
+
     return o
 
 def package_facts():
     #package_facts module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("package_facts")
+
+    # manager 
+    # strategy
+
     return o
 
 def pause():
     #pause module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("pause")
+
+    # echo 
+    # prompt 
+    # minutes 
+    # seconds
+
     return o
 
 def ping():
     #ping module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("ping")
+
+    # data
+
     return o
 
 def pip():
     #pip module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("pip")
+
+    # chdir 
+    # editable
+    # executable 
+    # extra_args 
+    # name 
+    # requirements 
+    # state 
+    # umask 
+    # version 
+    # virtualenv 
+    # virtualenv_command
+    # virtualenv_python 
+    # virtualenv_site_packages
+
     return o
 
 def raw():
     #raw module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("raw")
+
+    # free_form
+    # executable
+
     return o
 
 def reboot():
     #reboot module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("reboot")
+
+    # boot_time_command 
+    # connect_timeout 
+    # msg 
+    # post_reboot_delay 
+    # reboot_command 
+    # reboot_timeout 
+    # search_paths 
+    # test_command
+ 
     return o
 
 def replace():
     #replace module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("replace")
+    # path regexp
+
+    # after 
+    # attributes 
+    o += PWH.backup()
+    # before 
+    # encoding 
+    o += PWH.group()
+    # mode 
+    # others 
+    # owner 
+    # replace 
+    o += PWH.seThings()
+    o += PWH.unsafe_writes()
+    o += PWH.validate()
+
     return o
 
 def rpm_key():
     #rpm_key module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("rpm_key")
+
+    # fingerprint 
+    # key 
+    # state 
+    o += PWH.validate_certs()
+
     return o
 
 def script():
     #script module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("script")
+
+    # chdir 
+    # cmd 
+    # creates 
+    o += PWH.decrypt()
+    # executable 
+    # free_form 
+    # removes
+
     return o
 
 def service():
     #service module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("service")
+
+    # arguments 
+    # enabled 
+    # name 
+    # pattern 
+    # runlevel 
+    # sleep 
+    # state 
+    # use 
+
     return o
 
 def service_facts():
     #service_facts module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("service_facts")
+
+    # 
+
     return o
 
 def set_fact():
     #set_fact module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("set_fact")
+    # key_value
+
+    # cacheable 
+
     return o
 
 def set_stats():
     #set_stats module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("set_stats")
+    # data
+
+    # aggregate per_host
+
     return o
 
 def setup():
     #setup module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("setup")
+
+    # fact_path 
+    # filter 
+    # gather_subset 
+    # gather_timeout
+
     return o
 
 def shell():
     #shell module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("shell")
+
+    # chdir 
+    # cmd 
+    # creates 
+    # executable 
+    # free_form 
+    # removes 
+    # stdin 
+    # stdin_add_newline
+    
     return o
 
 def slurp():
     #slurp module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("slurp")
+
+    # src
+
     return o
 
 def stat():
     #stat module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("stat")
+    # path
+
+    # checksum_algorithm 
+    # follow 
+    # get_attributes 
+    # get_checksum 
+    # get_mime
+
     return o
 
 def subversion():
     #subversion module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("subversion")
+    # repo
+
+    # checkout 
+    # dest 
+    # executable 
+    # export 
+    # force 
+    # in_place 
+    # password
+    # revision 
+    # switch 
+    # update 
+    # username 
+    o += PWH.validate_certs()
+
     return o
 
 def systemd():
     #systemd module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("systemd")
+
+    # daemon_reexec 
+    # daemon_reload 
+    # enabled 
+    # force 
+    # masked 
+    # name 
+    # no_block 
+    # scope 
+    # state
+
     return o
 
 def systemd_service():
     #systemd_service module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("systemd_service")
+
+    # daemon_reexec 
+    # daemon_reload 
+    # enabled 
+    # force 
+    # masked 
+    # name 
+    # no_block 
+    # scope 
+    # state
+
     return o
 
 def sysvinit():
     #sysvinit module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("sysvinit")
+    # name
+
+    # arguments 
+    # daemonize 
+    # enabled 
+    # pattern 
+    # runlevels 
+    # sleep 
+    # state
+
     return o
 
 def tempfile():
     #tempfile module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("tempfile")
+
+    # path 
+    # prefix 
+    # state 
+    # suffix
+
     return o
 
 def template():
     #template module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("template")
+    # dest src
+
+    o += PWH.attributes()
+    o += PWH.backup
+    # block_end_string 
+    # block_start_string 
+    # comment_end_string 
+    # comment_start_string 
+    # follow 
+    # force 
+    o+= PWH.group()
+    # lstrip_blocks
+    # mode 
+    # newline_sequence 
+    # output_encoding 
+    o += PWH.owner()
+    o += PWH.seThings()
+    # trim_blocks 
+    o += PWH.unsafe_writes()
+    o += PWH.validate()
+    # variable_end_string
+    # vari
+
     return o
 
 def unarchive():
     #unarchive module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("unarchive")
+    # dest src
+
+    o += PWH.attributes()
+    # copy 
+    # creates 
+    o += PWH.decrypt()
+    # exclude 
+    # extra_opts 
+    o += PWH.group()
+    # include 
+    # io_buffer_size 
+    # keep_newer 
+    # list_files 
+    o += PWH.mode()
+    o += PWH.owner()
+    # remote_src 
+    o += PWH.seThings()
+    o += PWH.unsafe_writes()
+    o += PWH.validate_certs()
+
     return o
 
 def uri():
     #uri module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("uri")
+    # url
+
+    o += PWH.attributes()
+    # body 
+    # body_format 
+    # ca_path 
+    # ciphers 
+    # client_cert 
+    # client_key 
+    # creates 
+    # decompress 
+    # dest 
+    # follow_redirects 
+    # force
+    # force_basic_auth 
+    # group 
+    # headers 
+    # http_agent 
+    # method 
+    o += PWH.mode()
+    o += PWH.owner()
+    # remote_src 
+    # removes 
+    # return_content 
+    o += PWH.seThings() 
+    # src
+    # status_code 
+    # timeout 
+    # unix_socket 
+    # unredirected_headers
+    o += PWH.unsafe_writes()
+    # url_password 
+    # url_username 
+    # use_gssapi 
+    # use_netrc
+    # use_proxy 
+    o += PWH.validate_certs()
+
     return o
 
 def user():
     #user module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("user")
+    #
+
+    # append 
+    # authorization 
+    # comment 
+    # create_home 
+    # expires 
+    # force 
+    # generate_ssh_key 
+    o += PWH.group()
+    # groups 
+    # hidden 
+    # home 
+    # local 
+    # login_class
+    # move_home 
+    # non_unique 
+    # password 
+    # password_expire_max 
+    # password_expire_min 
+    # password_lock 
+    # profile 
+    # remove 
+    # role 
+    o += PWH.seuser()
+    # shell
+    # skeleton 
+    # ssh_key_bits 
+    # ssh_key_comment 
+    # ssh_key_file 
+    # ssh_key_passphrase 
+    # ssh_key_type 
+    o += PWH.stateAbsentPresent()
+    # system 
+    # uid 
+    # umask 
+    # update_password
+
     return o
 
 def validate_argument_spec():
     #validate_argument_spec module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("validate_argument_spec")
+    # argument_spec 
+
+    # provided_arguments
+
     return o
 
 def wait_for():
     #wait_for module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("wait_for")
+
+    # active_connection_states 
+    # connect_timeout 
+    # delay 
+    # exclude_hosts 
+    # host 
+    # msg 
+    # path 
+    # port 
+    # search_regex 
+    # sleep 
+    # state 
+    # timeout
+
     return o
 
 def wait_for_connection():
     #wait_for_connection module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("wait_for_connection")
+
+    # connect_timeout
+    # delay 
+    # sleep 
+    # timeout
+
     return o
 
 def yum():
     #yum module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("yum")
+
+    # allow_downgrade 
+    # autoremove 
+    # bugfix 
+    # cacheonly 
+    # conf_file 
+    # disable_excludes 
+    # disable_gpg_check 
+    # disable_plugin 
+    # disablerepo 
+    # download_dir 
+    # enable_plugin 
+    # enablerepo 
+    # exclude 
+    # install_repository
+    # install_weak_deps 
+    # install_root 
+    # list 
+    # lock_timeout 
+    # name releasever 
+    # security 
+    # skip_broken 
+    # sslverify 
+    # state 
+    # update_cache 
+    # update_only 
+    # use_backend 
+    o += PWH.validate_certs()
+
     return o
 
 def yum_repository():
     #yum_repository module
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("yum_repository")
+    # name
+
+    # async 
+    o += PWH.attributes()
+    # bandwidth 
+    # baseurl 
+    # cost 
+    # deltarpm_metadata_percentage 
+    # deltarpm_percentage 
+    # description 
+    # enabled
+    # enablegroups 
+    # excludes 
+    # failovermethod 
+    # file 
+    # gpgcakey 
+    # gpgcheck 
+    # gpgkey 
+    o += PWH.group()
+    # http_caching 
+    # include 
+    # includepkgs 
+    # ip_resolve
+    # keepalive 
+    # keepcache 
+    # metadata_expire 
+    # metadata_expire_filter 
+    # metalink 
+    # mirrorlist 
+    # mirrorlist_expire 
+    o += PWH.mode()
+    # module_hotfixes 
+    # owner 
+    # password 
+    # priority 
+    # protect 
+    # proxy 
+    # proxy_password 
+    # proxy_username 
+    # repo_gpgcheck 
+    # reposdir 
+    # retries 
+    # s3_enabled
+    o += PWH.seThings()
+    # skip_if_unavailable 
+    # ssl_check_cert_permissions 
+    # sslcacert 
+    # sslclientcert 
+    # sslclientkey 
+    # sslverify 
+    o += PWH.stateAbsentPresent()
+    # throttle 
+    # timeout 
+    # ui_repoid_vars 
+    o += PWH.unsafe_writes()
+    # username 
+
     return o
 
 def runas():
     #runas become
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("runas")
+    # become_user 
+
+    # become_flags become_pass 
+    
     return o
 
 def su():
     #su become
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("su")
+
+    # become_exe 
+    # become_flags 
+    # become_pass 
+    # become_user 
+    # prompt_l10n
+
     return o
 
 def sudo():
     #sudo become
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("sudo")
+
+    # become_exe 
+    # become_flags 
+    # become_pass 
+    # become_user
+
     return o
 
 def jsonfile():
     #jsonfile cache
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("jsonfile")
+    # _uri
+
+    # _prefix 
+    # _timeout
+
     return o
 
 def memory():
     #memory cache
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("memory")
+
+    # no things
+
     return o
 
 def default():
     #default callback
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("default")
+
+    # check_mode_markers 
+    # display_failed_stderr 
+    # display_ok_hosts 
+    # display_skipped_hosts 
+    # pretty_results result_format 
+    # show_custom_stats 
+    # show_per_host_start 
+    # show_task_path_on_failure 
+
     return o
 
 def junit():
     #junit callback
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("junit")
+
+    # fail_on_change 
+    # fail_on_ignore 
+    # hide_task_arguments 
+    # include_setup_tasks_in_report 
+    # output_dir 
+    # replace_out_of_tree_path
+    # task_class 
+    # task_relative_path 
+    # test_case_prefix
+
     return o
 
 def minimal():
     #minimal callback
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("minimal")
+
+    # pretty_results
+    # result_format
+
     return o
 
 def oneline():
     #oneline callback
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("oneline")
+
+    # no things
+
     return o
 
 def tree():
     #tree callback
     o = ""
-    o += PWH.playStart("apt")
-    return o
+    o += PWH.playStart("tree")
 
+    # directory 
+
+    return o
 
 def local():
     #local connection
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("local")
+
+    # 
+
     return o
 
 def paramiko_ssh():
     #paramiko_ssh connection
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("paramiko_ssh")
+
+
+
     return o
 
 def psrp():
     #psrp connection
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("psrp")
+
+
+
     return o
 
 def ssh():
     #ssh connection
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("ssh")
+
+
+
     return o
 
 def winrm():
     #winrm connection
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("winrm")
+
+
+
     return o
 
 def b64decode():
     #b64decode filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("b64decode")
+
+
+
     return o
 
 def b64encode():
     #b64encode filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("b64encode")
+
+
+
     return o
 
 def basename():
     #basename filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("basename")
+
+
+
     return o
 
 def bool():
     #bool filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("bool")
     return o
 
 def checksum():
     #checksum filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("checksum")
     return o
 
 def combinations():
     #combinations filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("combinations")
     return o
 
 def combine():
     #combine filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("combine")
     return o
 
 def comment():
     #comment filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("comment")
     return o
 
 def dict2items():
     #dict2items filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("dict2items")
     return o
 
 def difference():
     #difference filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("difference")
     return o
 
 def dirname():
     #dirname filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("dirname")
     return o
 
 def expanduser():
     #expanduser filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("expanduser")
     return o
 
 def expandvars():
     #expandvars filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("expandvars")
     return o
 
 def extract():
     #extract filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("extract")
     return o
 
 def fileglob():
     #fileglob filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("fileglob")
     return o
 
 def flatten():
     #flatten filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("flatten")
     return o
 
 def from_json():
     #from_json filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("from_json")
     return o
 
 def from_yaml():
     #from_yaml filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("from_yaml")
     return o
 
 def from_yaml_all():
     #from_yaml_all filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("from_yaml_all")
     return o
 
 def hash():
     #hash filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("hash")
     return o
 
 def human_readable():
     #human_readable filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("human_readable")
     return o
 
 def human_to_bytes():
     #human_to_bytes filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("human_to_bytes")
     return o
 
 def intersect():
     #intersect filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("intersect")
     return o
 
 def items2dict():
     #items2dict filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("items2dict")
     return o
 
 def log():
     #log filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("log")
     return o
 
 def mandatory():
     #mandatory filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("mandatory")
     return o
 
 def md5():
     #md5 filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("md5")
     return o
 
 def password_hash():
     #password_hash filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("password_hash")
     return o
 
 def path_join():
     #path_join filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("path_join")
     return o
 
 def permutations():
     #permutations filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("permutations")
     return o
 
 def pow():
     #pow filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("pow")
     return o
 
 def product():
     #product filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("product")
     return o
 
 def quote():
     #quote filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("quote")
     return o
 
 def random():
     #random filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("random")
     return o
 
 def realpath():
     #realpath filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("realpath")
     return o
 
 def regex_escape():
     #regex_escape filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("regex_escape")
     return o
 
 def regex_findall():
     #regex_findall filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("regex_findall")
     return o
 
 def regex_replace():
     #regex_replace filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("regex_replace")
     return o
 
 def regex_search():
     #regex_search filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("regex_search")
     return o
 
 def rekey_on_member():
     #rekey_on_member filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("rekey_on_member")
     return o
 
 def relpath():
     #relpath filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("relpath")
     return o
 
 def root():
     #root filter
-    return
+    o = ""
+    o += PWH.playStart("root")
+    return o
 
 def sha1():
     #sha1 filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("sha1")
     return o
 
 def shuffle():
     #shuffle filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("shuffle")
     return o
 
-def splitext():
-    #splitext filter
+def splittext():
+    #splittext filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("splittext")
     return o
 
 def strftime():
     #strftime filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("strftime")
     return o
 
 def subelements():
     #subelements filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("subelements")
     return o
 
 def symmetric_difference():
     #symmetric_difference filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("symmetric_difference")
     return o
 
 def ternary():
     #ternary filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("ternary")
     return o
 
 def to_datetime():
     #to_datetime filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_datetime")
     return o
 
 def to_json():
     #to_json filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_json")
     return o
 
 def to_nice_json():
     #to_nice_json filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_nice_json")
     return o
 
 def to_nice_yaml():
     #to_nice_yaml filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_nice_yaml")
     return o
 
 def to_uuid():
     #to_uuid filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_uuid")
     return o
 
 def to_yaml():
     #to_yaml filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("to_yaml")
     return o
 
 def type_debug():
     #type_debug filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("type_debug")
     return o
 
 def union():
     #union filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("union")
     return o
 
 def unique():
     #unique filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("unique")
     return o
 
 def unvault():
     #unvault filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("unvault")
     return o
 
 def urlsplit():
     #urlsplit filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("urlsplit")
     return o
 
 def vault():
     #vault filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("vault")
     return o
 
 def win_basename():
     #win_basename filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("win_basename")
     return o
 
 def win_dirname():
     #win_dirname filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("win_dirname")
     return o
 
 def win_splitdrive():
     #win_splitdrive filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("win_splitdrive")
     return o
 
 def zip():
     #zip filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("zip")
     return o
 
 def zip_longest():
     #zip_longest filter
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("zip_longest")
     return o
 
 def advanced_host_list():
     #advanced_host_list inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("advanced_host_list")
     return o
 
 def auto():
     #auto inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("auto")
     return o
 
 def constructed():
     #constructed inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("constructed")
     return o
 
 def generator():
     #generator inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("generator")
     return o
 
 def host_list():
     #host_list inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("host_list")
     return o
 
 def ini():
     #ini inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("ini")
     return o
 
 def script():
     #script inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("script")
     return o
 
 def toml():
     #toml inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("toml")
     return o
 
 def yaml():
     #yaml inventory
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("yaml")
     return o
 
 
 def config():
     #config lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("config")
     return o
 
 def csvfile():
     #csvfile lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("csvfile")
     return o
 
 def dict():
     #dict lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("dict")
     return o
 
 def env():
     #env lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("env")
     return o
 
 def file():
     #file lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("file")
     return o
 
 def fileglob():
     #fileglob lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("fileglob")
     return o
 
 def first_found():
     #first_found lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("first_found")
     return o
 
 def indexed_items():
     #indexed_items lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("indexed_items")
     return o
 
 def ini():
     #ini lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("ini")
     return o
 
 def inventory_hostnames():
     #inventory_hostnames
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("inventory_hostnames")
     return o
 
 def lines():
     #lines lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("lines")
     return o
 
 def list():
     #list lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("list")
     return o
 
 def nested():
     #nested lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("nested")
     return o
 
 def password():
     #password lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("password")
     return o
 
 def pipe():
     #pipe lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("pipe")
     return o
 
 def random_choice():
     #random_choice lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("random_choice")
     return o
 
 def sequence():
     #sequence lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("sequence")
     return o
 
 def subelements():
     #subelements lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("subelements")
     return o
 
 def template():
     #template lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("template")
     return o
 
 def together():
     #together lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("together")
     return o
 
 def unvault():
     #unvault lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("unvault")
     return o
 
 def url():
     #url lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("url")
     return o
 
 def varnames():
     #varnames lookup
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("varnames")
     return o
 
 def vars():
     #vars lookup 
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("vars")
     return o
 
 
 def cmd():
     #cmd shell
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("cmd")
     return o
 
 def powershell():
     #powershell shell
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("powershell")
     return o
 
 def sh():
     #sh shell
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("sh")
     return o
 
 
 def debug():
     #debug strategy
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("debug")
     return o
 
 def free():
     #free strategy
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("free")
     return o
 
 def host_pinned():
     #host_pinned strategy
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("host_pinned")
     return o
 
 def linear():
     #linear strategy
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("linear")
     return o
 
 
 def abs():
     #abs all test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("abs")
     return o
 
 def any():
     #any test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("any")
     return o
 
 def changed():
     #changed test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("changed")
     return o
 
 def contains():
     #contains test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("contains")
     return o
 
 def directory():
     #directory test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("directory")
     return o
 
 def exists():
     #exists test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("exists")
     return o
 
 def failed():
     #failed test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("failed")
     return o
 
 def falsy():
     #falsy test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("falsy")
     return o
 
 def file():
     #file test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("file")
     return o
 
 def finished():
     #finished test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("finished")
     return o
 
 def link():
     #link test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("link")
     return o
 
 def link_exists():
     #link_exists test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("link_exists")
     return o
 
 def match():
     #match test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("match")
     return o
 
 def mount():
     #mount test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("mount")
     return o
 
 def nan():
     #nan test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("nan")
     return o
 
 def reachable():
     #reachable test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("reachable")
     return o
 
 def regex():
     #regex test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("regex")
     return o
 
 def same_file():
     #same_file test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("same_file")
     return o
 
 def search():
     #search test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("search")
     return o
 
 def skipped():
     #skipped test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("skipped")
     return o
 
 def started():
     #started test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("started")
     return o
 
 def subset():
     #subset test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("subset")
     return o
 
 def success():
     #success test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("success")
     return o
 
 def superset():
     #superset test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("superset")
     return o
 
 def truthy():
     #truthy test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("truthy")
     return o
 
 def unreachable():
     #unreachable test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("unreachable")
     return o
 
 def uri():
     #uri test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("uri")
     return o
 
 def url():
     #url test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("url")
     return o
 
 def urn():
     #urn test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("urn")
     return o
 
 def vault_encrypted():
     #vault_encrypted test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("vault_encrypted")
     return o
 
 def version():
     #version test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("version")
     return o
 
 def host_group_vars():
     #host_group_vars test
     o = ""
-    o += PWH.playStart("apt")
+    o += PWH.playStart("host_group_vars")
     return o
 
 funcs = {'add_host':add_host, 'apt':apt, 'apt_key':apt_key, 'apt_repository':apt_repository, 'assemble':assemble, 'assert':Assert, 'async_status':async_status, 'blockinfile':blockinfile, 'command':command, 'copy':copy, 'cron':cron, 'debconf':debconf, 'debug':debug, 'dnf':dnf, 'dpkg_selections':dpkg_selections, 'expect':expect, 'fail':fail, 'fetch':fetch, 'file':file, 'gather_facts':gather_facts, 'get_url':get_url, 'getent':getent, 'git':git, 'group':group, 'group_by':group_by, 'hostname':hostname, 'import_playbook':import_playbook, 'import_role':import_role, 'import_tasks':import_tasks, 'include':include, 'include_role':include_role, 'include_tasks':include_tasks, 'include_vars':include_vars, 'iptables':iptables, 'known_hosts':known_hosts, 'lineinfile':lineinfile, 'meta':meta, 'package':package, 'package_facts':package_facts, 'pause':pause, 'ping':ping, 'pip':pip, 'raw':raw, 'reboot':reboot, 'replace':replace, 'rpm_key':rpm_key, 'script':script, 'service':service, 'service_facts':service_facts, 'set_fact':set_fact, 'set_stats':set_stats, 'setup':setup, 'shell':shell, 'slurp':slurp, 'stat':stat, 'subversion':subversion, 'systemd':systemd, 'systemd_service':systemd_service, 'sysvinit':sysvinit, 'tempfile':tempfile, 'template':template, 'unarchive':unarchive, 'uri':uri, 'user':user, 'validate_argument_spec':validate_argument_spec, 'wait_for':wait_for, 'wait_for_connection':wait_for_connection, 'yum':yum, 'yum_repository':yum_repository, 'runas':runas, 'su':su, 'sudo':sudo, 'jsonfile':jsonfile, 'memory':memory, 'default':default, 'junit':junit, 'minimal':minimal, 'oneline':oneline, 'tree':tree, 'local':local, 'paramiko_ssh':paramiko_ssh, 'psrp':psrp, 'ssh':ssh, 'winrm':winrm, 'b64decode':b64decode, 'b64encode':b64encode, 'basename':basename, 'bool':bool, 'checksum':checksum, 'combinations':combinations, 'combine':combine, 'comment':comment, 'dict2items':dict2items, 'difference':difference, 'dirname':dirname, 'expanduser':expanduser, 'expandvars':expandvars, 'extract':extract, 'fileglob':fileglob, 'flatten':flatten, 'from_json':from_json, 'from_yaml':from_yaml, 'from_yaml_all':from_yaml_all, 'hash':hash, 'human_readable':human_readable, 'human_to_bytes':human_to_bytes, 'intersect':intersect, 'items2dict':items2dict, 'log':log, 'mandatory':mandatory, 'md5':md5, 'password_hash':password_hash, 'path_join':path_join, 'permutations':permutations, 'pow':pow, 'product':product, 'quote':quote, 'random':random, 'realpath':realpath, 'regex_escape':regex_escape, 'regex_findall':regex_findall, 'regex_replace':regex_replace, 'regex_search':regex_search, 'rekey_on_member':rekey_on_member, 'relpath':relpath, 'root':root, 'sha1':sha1, 'shuffle':shuffle, 'splitext':splitext, 'strftime':strftime, 'subelements':subelements, 'symmetric_difference':symmetric_difference, 'ternary':ternary, 'to_datetime':to_datetime, 'to_json':to_json, 'to_nice_json':to_nice_json, 'to_nice_yaml':to_nice_yaml, 'to_uuid':to_uuid, 'to_yaml':to_yaml, 'type_debug':type_debug, 'union':union, 'unique':unique, 'unvault':unvault, 'urlsplit':urlsplit, 'vault':vault, 'win_basename':win_basename, 'win_dirname':win_dirname, 'win_splitdrive':win_splitdrive, 'zip':zip, 'zip_longest':zip_longest, 'advanced_host_list':advanced_host_list, 'auto':auto, 'constructed':constructed, 'generator':generator, 'host_list':host_list, 'ini':ini, 'script':script, 'toml':toml, 'yaml':yaml, 'config':config, 'csvfile':csvfile, 'dict':dict, 'env':env, 'file':file, 'fileglob':fileglob, 'first_found':first_found, 'indexed_items':indexed_items, 'ini':ini, 'inventory_hostnames':inventory_hostnames, 'lines':lines, 'list':list, 'nested':nested, 'password':password, 'pipe':pipe, 'random_choice':random_choice, 'sequence':sequence, 'subelements':subelements, 'template':template, 'together':together, 'unvault':unvault, 'url':url, 'varnames':varnames, 'vars':vars, 'cmd':cmd, 'powershell':powershell, 'sh':sh, 'debug':debug, 'free':free, 'host_pinned':host_pinned, 'linear':linear, 'abs':abs, 'all':all, 'any':any, 'changed':changed, 'contains':contains, 'directory':directory, 'exists':exists, 'failed':failed, 'falsy':falsy, 'file':file, 'finished':finished, 'link':link, 'link_exists':link_exists, 'match':match, 'mount':mount, 'nan':nan, 'reachable':reachable, 'regex':regex, 'same_file':same_file, 'search':search, 'skipped':skipped, 'started':started, 'subset':subset, 'success':success, 'superset':superset, 'truthy':truthy, 'unreachable':unreachable, 'uri':uri, 'url':url, 'urn':urn, 'vault_encrypted':vault_encrypted, 'version':version, 'host_group_vars':host_group_vars}

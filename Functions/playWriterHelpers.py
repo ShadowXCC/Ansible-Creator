@@ -6,6 +6,15 @@ def playStart(modName):
 def defYNQuestionAnswer(question):
     return input(question + " (Y/N)? ").lower() == "y"
 
+def seThings():
+    r = ""
+    r += selevel()
+    r += serole()
+    r += setype()
+    r += seuser()
+
+    return r
+
 #############################################################################################
 # Above are more generic functions
 #
