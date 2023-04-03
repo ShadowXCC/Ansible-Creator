@@ -2,7 +2,7 @@ def mainMenu():
     m = ""
     m += "1. Create Inventory File\n"
     m += "2. Create a Play\n"
-    m += "3. Fix spacing in already created playbook"
+    m += "3. Fix spacing in already created playbook\n"
     m += "X. Close Program\n"
     m += "\n"
     m += "Please select an option: "

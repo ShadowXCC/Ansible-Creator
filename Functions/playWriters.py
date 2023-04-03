@@ -6,6 +6,7 @@ from . import menus
 
 baseModuleName = "\tansible.builtin."
 funcs = {} # Located at very bottom of file
+rrssList = ["reloaded", "restarted", "started", "stopped"]
 
 #---------------------------------------------------------
 
@@ -298,7 +299,6 @@ def copy():
     o += PWH.playStart("copy")
     #dest
 
-    # attributes
     print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html")
     o += PWH.attributes("Do you want the copied files to have any specific attributes?")
     o += PWH.backup()
@@ -328,7 +328,6 @@ def cron():
     #name
 
 
-    # backup 
     o += PWH.backup()
     # cron_file 
     # day 
@@ -341,8 +340,8 @@ def cron():
     # minute 
     # month 
     # special_time 
-    # state 
-    # user 
+    o += PWH.stateAbsentPresent()
+    # user
     # weekday
 
     return o
@@ -405,7 +404,7 @@ def dnf():
     # security 
     # skip_broken 
     # sslverify 
-    # state 
+    # complicatedState 
     o += PWH.update_cache()
     # update_only 
     o += PWH.validate_certs()
@@ -477,7 +476,7 @@ def file():
     # recurse
     o += PWH.seThings()
     # src
-    # state
+    # complicatedState
     o += PWH.unsafe_writes()
 
     return o
@@ -520,9 +519,9 @@ def get_url():
     o += PWH.playStart("get_url")
     # dest
 
-    # attributes 
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/replace_module.html#parameter-attributes")
     o += PWH.attributes("Do you want the downloaded file to have any specific attributes")
-    o += PWH.backup() 
+    o += PWH.backup()
     # checksum 
     # ciphers 
     # client_cert 
@@ -602,7 +601,7 @@ def group():
     # gid 
     # local 
     # non_unique 
-    # state 
+    o += PWH.stateAbsentPresent()
     # system
 
     return o
@@ -749,7 +748,7 @@ def iptables():
     # source
     # source_port
     # src_range
-    # state
+    o += PWH.stateAbsentPresent()
     # syn
     # table
     # tcp_flags(flags flags_set)
@@ -769,7 +768,7 @@ def known_hosts():
     # key 
     # name 
     # path 
-    # state
+    o += PWH.stateAbsentPresent()
 
     return o
 
@@ -779,22 +778,23 @@ def lineinfile():
     o += PWH.playStart("lineinfile")
     # path
 
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html#parameter-attributes")
     o += PWH.attributes("Do you want to specify attributes for the file being worked on")
     # backrefs
     o += PWH.backup()
     # create
     # firstmatch
-    # group
+    o += PWH.group()
     # insertafter
     # insertbefore
     # line
-    # mode
+    o += PWH.mode()
     # others
     o += PWH.owner()
     o += PWH.regexp("Do you you want to use a regular expression for this action")
     # search_string
     o += PWH.seThings()
-    # state
+    o += PWH.stateAbsentPresent()
     o += PWH.unsafe_writes()
     o += PWH.validate()
 
@@ -815,7 +815,7 @@ def package():
     o += PWH.playStart("package")
 
     # name
-    # state
+    o += PWH.state(["present", "absent"])
 
     # use
 
@@ -863,7 +863,7 @@ def pip():
     # extra_args 
     # name 
     # requirements 
-    # state 
+    o += PWH.state(["absent", "forcereinstall", "latest", "present"])
     # umask 
     # version 
     # virtualenv 
@@ -906,14 +906,15 @@ def replace():
     # path regexp
 
     # after 
-    # attributes 
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/replace_module.html#parameter-attributes")
+    o += PWH.attributes()
     o += PWH.backup()
     # before 
     # encoding 
     o += PWH.group()
-    # mode 
+    o += PWH.mode()
     # others 
-    # owner 
+    o += PWH.owner() 
     # replace 
     o += PWH.seThings()
     o += PWH.unsafe_writes()
@@ -928,7 +929,7 @@ def rpm_key():
 
     # fingerprint 
     # key 
-    # state 
+    o += PWH.stateAbsentPresent()
     o += PWH.validate_certs()
 
     return o
@@ -959,7 +960,7 @@ def service():
     # pattern 
     # runlevel 
     # sleep 
-    # state 
+    o += PWH.state(rrssList)
     # use 
 
     return o
@@ -1078,7 +1079,7 @@ def systemd():
     # name 
     # no_block 
     # scope 
-    # state
+    o += PWH.state(rrssList)
 
     return o
 
@@ -1095,7 +1096,7 @@ def systemd_service():
     # name 
     # no_block 
     # scope 
-    # state
+    o += PWH.state(rrssList)
 
     return o
 
@@ -1111,7 +1112,7 @@ def sysvinit():
     # pattern 
     # runlevels 
     # sleep 
-    # state
+    o += PWH.state(rrssList)
 
     return o
 
@@ -1122,7 +1123,7 @@ def tempfile():
 
     # path 
     # prefix 
-    # state 
+    o += PWH.state(["directory", "file"])
     # suffix
 
     return o
@@ -1131,9 +1132,11 @@ def template():
     #template module
     o = ""
     o += PWH.playStart("template")
-    # dest src
+    # dest 
+    # src
 
-    o += PWH.attributes()
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want to specify attributes for the file created by this template")
     o += PWH.backup
     # block_end_string 
     # block_start_string 
@@ -1143,7 +1146,7 @@ def template():
     # force 
     o+= PWH.group()
     # lstrip_blocks
-    # mode 
+    o += PWH.mode() 
     # newline_sequence 
     # output_encoding 
     o += PWH.owner()
@@ -1162,20 +1165,21 @@ def unarchive():
     o += PWH.playStart("unarchive")
     # dest src
 
-    o += PWH.attributes()
-    # copy 
-    # creates 
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want any specific attributes on the resulting files")
+    # copy
+    # creates
     o += PWH.decrypt()
-    # exclude 
-    # extra_opts 
+    # exclude
+    # extra_opts
     o += PWH.group()
     # include 
-    # io_buffer_size 
-    # keep_newer 
-    # list_files 
+    # io_buffer_size
+    # keep_newer
+    # list_files
     o += PWH.mode()
     o += PWH.owner()
-    # remote_src 
+    # remote_src
     o += PWH.seThings()
     o += PWH.unsafe_writes()
     o += PWH.validate_certs()
@@ -1188,7 +1192,8 @@ def uri():
     o += PWH.playStart("uri")
     # url
 
-    o += PWH.attributes()
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/uri_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want the result to have any specific attributes")
     # body 
     # body_format 
     # ca_path 
@@ -1201,7 +1206,7 @@ def uri():
     # follow_redirects 
     # force
     # force_basic_auth 
-    # group 
+    o += PWH.group()
     # headers 
     # http_agent 
     # method 
@@ -1295,7 +1300,7 @@ def wait_for():
     # port 
     # search_regex 
     # sleep 
-    # state 
+    o += PWH.state(["absent", "drained", "present", "started", "stopped"])
     # timeout
 
     return o
@@ -1339,8 +1344,8 @@ def yum():
     # security 
     # skip_broken 
     # sslverify 
-    # state 
-    # update_cache 
+    o += PWH.state(["absent", "installed", "latest", "present", "removed"])
+    o += PWH.update_cache()
     # update_only 
     # use_backend 
     o += PWH.validate_certs()
@@ -1354,61 +1359,86 @@ def yum_repository():
     # name
 
     # async 
-    o += PWH.attributes()
-    # bandwidth 
-    # baseurl 
-    # cost 
-    # deltarpm_metadata_percentage 
-    # deltarpm_percentage 
-    # description 
+    print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_repository_module.html#parameter-attributes")
+    o += PWH.attributes("Do you want any specific attributes for the created yum repository")
+    # bandwidth
+    # baseurl
+    # cost
+    # deltarpm_metadata_percentage
+    # deltarpm_percentage
+    # description
     # enabled
-    # enablegroups 
-    # excludes 
-    # failovermethod 
-    # file 
-    # gpgcakey 
-    # gpgcheck 
-    # gpgkey 
+    # enablegroups
+    # excludes
+    # failovermethod
+    # file
+    # gpgcakey
+    # gpgcheck
+    # gpgkey
     o += PWH.group()
-    # http_caching 
-    # include 
-    # includepkgs 
+    # http_caching
+    # include
+    # includepkgs
     # ip_resolve
-    # keepalive 
-    # keepcache 
-    # metadata_expire 
-    # metadata_expire_filter 
-    # metalink 
-    # mirrorlist 
-    # mirrorlist_expire 
+    # keepalive
+    # keepcache
+    # metadata_expire
+    # metadata_expire_filter
+    # metalink
+    # mirrorlist
+    # mirrorlist_expire
     o += PWH.mode()
-    # module_hotfixes 
-    # owner 
-    # password 
-    # priority 
-    # protect 
-    # proxy 
-    # proxy_password 
-    # proxy_username 
-    # repo_gpgcheck 
-    # reposdir 
-    # retries 
+    # module_hotfixes
+    o += PWH.owner()
+    # password
+    # priority
+    # protect
+    # proxy
+    # proxy_password
+    # proxy_username
+    # repo_gpgcheck
+    # reposdir
+    # retries
     # s3_enabled
     o += PWH.seThings()
-    # skip_if_unavailable 
-    # ssl_check_cert_permissions 
-    # sslcacert 
-    # sslclientcert 
-    # sslclientkey 
-    # sslverify 
+    # skip_if_unavailable
+    # ssl_check_cert_permissions
+    # sslcacert
+    # sslclientcert
+    # sslclientkey
+    # sslverify
     o += PWH.stateAbsentPresent()
-    # throttle 
-    # timeout 
-    # ui_repoid_vars 
+    # throttle
+    # timeout
+    # ui_repoid_vars
     o += PWH.unsafe_writes()
-    # username 
+    # username
 
     return o
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def runas():
     #runas become
@@ -2412,4 +2442,4 @@ def host_group_vars():
     o += PWH.playStart("host_group_vars")
     return o
 
-funcs = {'add_host':add_host, 'apt':apt, 'apt_key':apt_key, 'apt_repository':apt_repository, 'assemble':assemble, 'assert':Assert, 'async_status':async_status, 'blockinfile':blockinfile, 'command':command, 'copy':copy, 'cron':cron, 'debconf':debconf, 'debug':debug, 'dnf':dnf, 'dpkg_selections':dpkg_selections, 'expect':expect, 'fail':fail, 'fetch':fetch, 'file':file, 'gather_facts':gather_facts, 'get_url':get_url, 'getent':getent, 'git':git, 'group':group, 'group_by':group_by, 'hostname':hostname, 'import_playbook':import_playbook, 'import_role':import_role, 'import_tasks':import_tasks, 'include':include, 'include_role':include_role, 'include_tasks':include_tasks, 'include_vars':include_vars, 'iptables':iptables, 'known_hosts':known_hosts, 'lineinfile':lineinfile, 'meta':meta, 'package':package, 'package_facts':package_facts, 'pause':pause, 'ping':ping, 'pip':pip, 'raw':raw, 'reboot':reboot, 'replace':replace, 'rpm_key':rpm_key, 'script':script, 'service':service, 'service_facts':service_facts, 'set_fact':set_fact, 'set_stats':set_stats, 'setup':setup, 'shell':shell, 'slurp':slurp, 'stat':stat, 'subversion':subversion, 'systemd':systemd, 'systemd_service':systemd_service, 'sysvinit':sysvinit, 'tempfile':tempfile, 'template':template, 'unarchive':unarchive, 'uri':uri, 'user':user, 'validate_argument_spec':validate_argument_spec, 'wait_for':wait_for, 'wait_for_connection':wait_for_connection, 'yum':yum, 'yum_repository':yum_repository, 'runas':runas, 'su':su, 'sudo':sudo, 'jsonfile':jsonfile, 'memory':memory, 'default':default, 'junit':junit, 'minimal':minimal, 'oneline':oneline, 'tree':tree, 'local':local, 'paramiko_ssh':paramiko_ssh, 'psrp':psrp, 'ssh':ssh, 'winrm':winrm, 'b64decode':b64decode, 'b64encode':b64encode, 'basename':basename, 'bool':bool, 'checksum':checksum, 'combinations':combinations, 'combine':combine, 'comment':comment, 'dict2items':dict2items, 'difference':difference, 'dirname':dirname, 'expanduser':expanduser, 'expandvars':expandvars, 'extract':extract, 'fileglob':fileglob, 'flatten':flatten, 'from_json':from_json, 'from_yaml':from_yaml, 'from_yaml_all':from_yaml_all, 'hash':hash, 'human_readable':human_readable, 'human_to_bytes':human_to_bytes, 'intersect':intersect, 'items2dict':items2dict, 'log':log, 'mandatory':mandatory, 'md5':md5, 'password_hash':password_hash, 'path_join':path_join, 'permutations':permutations, 'pow':pow, 'product':product, 'quote':quote, 'random':random, 'realpath':realpath, 'regex_escape':regex_escape, 'regex_findall':regex_findall, 'regex_replace':regex_replace, 'regex_search':regex_search, 'rekey_on_member':rekey_on_member, 'relpath':relpath, 'root':root, 'sha1':sha1, 'shuffle':shuffle, 'splitext':splitext, 'strftime':strftime, 'subelements':subelements, 'symmetric_difference':symmetric_difference, 'ternary':ternary, 'to_datetime':to_datetime, 'to_json':to_json, 'to_nice_json':to_nice_json, 'to_nice_yaml':to_nice_yaml, 'to_uuid':to_uuid, 'to_yaml':to_yaml, 'type_debug':type_debug, 'union':union, 'unique':unique, 'unvault':unvault, 'urlsplit':urlsplit, 'vault':vault, 'win_basename':win_basename, 'win_dirname':win_dirname, 'win_splitdrive':win_splitdrive, 'zip':zip, 'zip_longest':zip_longest, 'advanced_host_list':advanced_host_list, 'auto':auto, 'constructed':constructed, 'generator':generator, 'host_list':host_list, 'ini':ini, 'script':script, 'toml':toml, 'yaml':yaml, 'config':config, 'csvfile':csvfile, 'dict':dict, 'env':env, 'file':file, 'fileglob':fileglob, 'first_found':first_found, 'indexed_items':indexed_items, 'ini':ini, 'inventory_hostnames':inventory_hostnames, 'lines':lines, 'list':list, 'nested':nested, 'password':password, 'pipe':pipe, 'random_choice':random_choice, 'sequence':sequence, 'subelements':subelements, 'template':template, 'together':together, 'unvault':unvault, 'url':url, 'varnames':varnames, 'vars':vars, 'cmd':cmd, 'powershell':powershell, 'sh':sh, 'debug':debug, 'free':free, 'host_pinned':host_pinned, 'linear':linear, 'abs':abs, 'all':all, 'any':any, 'changed':changed, 'contains':contains, 'directory':directory, 'exists':exists, 'failed':failed, 'falsy':falsy, 'file':file, 'finished':finished, 'link':link, 'link_exists':link_exists, 'match':match, 'mount':mount, 'nan':nan, 'reachable':reachable, 'regex':regex, 'same_file':same_file, 'search':search, 'skipped':skipped, 'started':started, 'subset':subset, 'success':success, 'superset':superset, 'truthy':truthy, 'unreachable':unreachable, 'uri':uri, 'url':url, 'urn':urn, 'vault_encrypted':vault_encrypted, 'version':version, 'host_group_vars':host_group_vars}
+funcs = {'add_host':add_host, 'apt':apt, 'apt_key':apt_key, 'apt_repository':apt_repository, 'assemble':assemble, 'assert':Assert, 'async_status':async_status, 'blockinfile':blockinfile, 'command':command, 'copy':copy, 'cron':cron, 'debconf':debconf, 'debug':debug, 'dnf':dnf, 'dpkg_selections':dpkg_selections, 'expect':expect, 'fail':fail, 'fetch':fetch, 'file':file, 'gather_facts':gather_facts, 'get_url':get_url, 'getent':getent, 'git':git, 'group':group, 'group_by':group_by, 'hostname':hostname, 'import_playbook':import_playbook, 'import_role':import_role, 'import_tasks':import_tasks, 'include':include, 'include_role':include_role, 'include_tasks':include_tasks, 'include_vars':include_vars, 'iptables':iptables, 'known_hosts':known_hosts, 'lineinfile':lineinfile, 'meta':meta, 'package':package, 'package_facts':package_facts, 'pause':pause, 'ping':ping, 'pip':pip, 'raw':raw, 'reboot':reboot, 'replace':replace, 'rpm_key':rpm_key, 'script':script, 'service':service, 'service_facts':service_facts, 'set_fact':set_fact, 'set_stats':set_stats, 'setup':setup, 'shell':shell, 'slurp':slurp, 'stat':stat, 'subversion':subversion, 'systemd':systemd, 'systemd_service':systemd_service, 'sysvinit':sysvinit, 'tempfile':tempfile, 'template':template, 'unarchive':unarchive, 'uri':uri, 'user':user, 'validate_argument_spec':validate_argument_spec, 'wait_for':wait_for, 'wait_for_connection':wait_for_connection, 'yum':yum, 'yum_repository':yum_repository, 'runas':runas, 'su':su, 'sudo':sudo, 'jsonfile':jsonfile, 'memory':memory, 'default':default, 'junit':junit, 'minimal':minimal, 'oneline':oneline, 'tree':tree, 'local':local, 'paramiko_ssh':paramiko_ssh, 'psrp':psrp, 'ssh':ssh, 'winrm':winrm, 'b64decode':b64decode, 'b64encode':b64encode, 'basename':basename, 'bool':bool, 'checksum':checksum, 'combinations':combinations, 'combine':combine, 'comment':comment, 'dict2items':dict2items, 'difference':difference, 'dirname':dirname, 'expanduser':expanduser, 'expandvars':expandvars, 'extract':extract, 'fileglob':fileglob, 'flatten':flatten, 'from_json':from_json, 'from_yaml':from_yaml, 'from_yaml_all':from_yaml_all, 'hash':hash, 'human_readable':human_readable, 'human_to_bytes':human_to_bytes, 'intersect':intersect, 'items2dict':items2dict, 'log':log, 'mandatory':mandatory, 'md5':md5, 'password_hash':password_hash, 'path_join':path_join, 'permutations':permutations, 'pow':pow, 'product':product, 'quote':quote, 'random':random, 'realpath':realpath, 'regex_escape':regex_escape, 'regex_findall':regex_findall, 'regex_replace':regex_replace, 'regex_search':regex_search, 'rekey_on_member':rekey_on_member, 'relpath':relpath, 'root':root, 'sha1':sha1, 'shuffle':shuffle, 'splittext':splittext, 'strftime':strftime, 'subelements':subelements, 'symmetric_difference':symmetric_difference, 'ternary':ternary, 'to_datetime':to_datetime, 'to_json':to_json, 'to_nice_json':to_nice_json, 'to_nice_yaml':to_nice_yaml, 'to_uuid':to_uuid, 'to_yaml':to_yaml, 'type_debug':type_debug, 'union':union, 'unique':unique, 'unvault':unvault, 'urlsplit':urlsplit, 'vault':vault, 'win_basename':win_basename, 'win_dirname':win_dirname, 'win_splitdrive':win_splitdrive, 'zip':zip, 'zip_longest':zip_longest, 'advanced_host_list':advanced_host_list, 'auto':auto, 'constructed':constructed, 'generator':generator, 'host_list':host_list, 'ini':ini, 'script':script, 'toml':toml, 'yaml':yaml, 'config':config, 'csvfile':csvfile, 'dict':dict, 'env':env, 'file':file, 'fileglob':fileglob, 'first_found':first_found, 'indexed_items':indexed_items, 'ini':ini, 'inventory_hostnames':inventory_hostnames, 'lines':lines, 'list':list, 'nested':nested, 'password':password, 'pipe':pipe, 'random_choice':random_choice, 'sequence':sequence, 'subelements':subelements, 'template':template, 'together':together, 'unvault':unvault, 'url':url, 'varnames':varnames, 'vars':vars, 'cmd':cmd, 'powershell':powershell, 'sh':sh, 'debug':debug, 'free':free, 'host_pinned':host_pinned, 'linear':linear, 'abs':abs, 'all':all, 'any':any, 'changed':changed, 'contains':contains, 'directory':directory, 'exists':exists, 'failed':failed, 'falsy':falsy, 'file':file, 'finished':finished, 'link':link, 'link_exists':link_exists, 'match':match, 'mount':mount, 'nan':nan, 'reachable':reachable, 'regex':regex, 'same_file':same_file, 'search':search, 'skipped':skipped, 'started':started, 'subset':subset, 'success':success, 'superset':superset, 'truthy':truthy, 'unreachable':unreachable, 'uri':uri, 'url':url, 'urn':urn, 'vault_encrypted':vault_encrypted, 'version':version, 'host_group_vars':host_group_vars}

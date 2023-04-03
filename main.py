@@ -85,7 +85,7 @@ while True:
     if cMM == "2":                
         a = True
         while a:
-            print("Warning: This search feature assumes an exact match currently. Example, searching for \"apt repository\" will not find \"apt_repository\"")
+            #print("Warning: This search feature assumes an exact match currently. Example, searching for \"apt repository\" will not find \"apt_repository\"")
             searchTerm = input("What kind of play do you want to create (\"X\" to cancel): ")
             if searchTerm.lower() != "x":
                 options = search.searchModules(searchTerm)

@@ -1,7 +1,7 @@
 def playStart(modName):
     name = input("What would you like to name this play: ")
 
-    return "- name: " + name + "\n" + "\tansible.builtin." + modName + "\n"
+    return "- name: " + name + "\n" + "\tansible.builtin." + modName + ":\n"
 
 def defYNQuestionAnswer(question):
     return input(question + " (Y/N)? ").lower() == "y"
@@ -47,6 +47,20 @@ def group():
 
     return r
 
+def hour():
+    r = ""
+    if input("Do you want to specify an amount of hours (Y/N)? ").lower() == "y":
+        r = "\t\thour: " + input("Enter the amount of hours: ") + "\n"
+    
+    return r
+
+def minute():
+    r = ""
+    if input("Do you want to specify an amount of minutes (Y/N)? ").lower() == "y":
+        r = "\t\tminute: " + input("Enter the amount of minutes: ") + "\n"
+    
+    return r
+
 def mode():
     r = ""
 
@@ -84,6 +98,13 @@ def remote_src():
 
     return r
 
+def second():
+    r = ""
+    if input("Do you want to specify an amount of seconds (Y/N)? ").lower() == "y":
+        r = "\t\tsecond: " + input("Enter the amount of seconds: ") + "\n"
+    
+    return r
+
 def selevel():
     r = ""
 
@@ -115,6 +136,27 @@ def seuser():
         r = "\t\tseuser: " + input("Enter the SELinux user: ") + "\n"
 
     return r
+
+# o += PWH.state(["", "", ""])
+def state(options):
+
+    if True: #input("Do you want to specify a state for this operation (Y/N)? ").lower() == "y":
+        i = 1
+        for o in options:
+            print(str(i) + ". " + o)
+
+            i += 1
+        
+        choice = int(input("Which option "))
+
+        return "\t\tstate: " + options[choice - 1]
+
+
+
+        #print(options[choice])
+        # if options[choice] == ans:
+        #     return options[choice]
+
 
 # This function only works if the default of state is "present", and the only other option is "absent"
 def stateAbsentPresent():
