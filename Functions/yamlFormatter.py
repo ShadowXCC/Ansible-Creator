@@ -1,16 +1,36 @@
 import yaml
 
-def dowork(path):
-    # Load the contents of the improperly formatted playbook
+def format_playbook(path):
+    """Loads, parses, and formats a YAML playbook file at the given path.
+
+    Args:
+        path (str): The path to the YAML playbook file.
+
+    Returns:
+        str: The formatted YAML playbook.
+
+    Raises:
+        IOError: If there was an error reading or writing the file.
+    """
     with open(path, 'r') as f:
         playbook_contents = f.read()
 
-    # Parse the playbook using PyYAML
     parsed_playbook = yaml.safe_load(playbook_contents)
 
-    # Dump the parsed playbook back to YAML format with proper indentation
-    formatted_playbook = yaml.dump(parsed_playbook, default_flow_style=False, indent=2)
+    formatted_playbook = yaml.dump(parsed_playbook, indent=2)
 
-    # Write the formatted playbook back to file
+    return formatted_playbook
+
+def toFile(path):
+    """Formats the YAML playbook file at the given path and writes the result back to the file.
+
+    Args:
+        path (str): The path to the YAML playbook file.
+
+    Raises:
+        IOError: If there was an error reading or writing the file.
+    """
+    formatted_playbook = format_playbook(path)
+
     with open(path, 'w') as f:
-        f.write(formatted_playbook)  
+        f.write(formatted_playbook)

@@ -1,10 +1,78 @@
+"""
+Displays a list of choices to the user based on the given question, and returns the user's selected option.
+
+Args:
+- quest (str): The question to ask the user.
+- choices (list[str]): The list of choices to display to the user.
+- module (str, optional): The module to which the selected option corresponds. Defaults to an empty string.
+    - A "" returns a well formatted line for a module
+    - "num" returns just the position of the proper choice
+    - Anything else returns the user's selection's content/answer
+
+Returns:
+- str|int: If module is not specified, returns a formatted string representing the selected option and its corresponding module.
+            If module is "num", returns the integer value of the selected option.
+            Otherwise, returns the string value of the selected option.
+"""
+def ans_from_list(quest, choices, module=""):
+    if quest.lower() == "state": quest = "Do you want to specify a state for this operation"
+
+    if y_or_n_quest(quest):
+        i = 1
+        for o in choices:
+            print(str(i) + ". " + o.capitalize())
+
+            i += 1
+
+        c = int(input("Which option: "))
+
+    if module.lower() == "num":
+        return c
+    elif not module:
+        return "\t\t" + module + ": " + choices[c - 1]
+    else:
+        return choices[c - 1]
+
+        #print(options[choice])
+        # if options[choice] == ans:
+        #     return options[choice]
+
+def genericLine(word, inner):
+    return "\t\t" + word + ": " + inner + "\n"
+
+def generic2PartLine(word, outer, inner):
+    r = ""
+    if y_or_n_quest(outer):
+        r += "\t\t" + word + ": " + inner + "\n"
+
+    return r
+
+def generic2Part2Lines(word1, outer, inner1, word2, inner2):
+    r = ""
+    if y_or_n_quest(outer):
+        r += "\t\t" + word1 + ": " + inner1 + "\n"
+        r += "\t\t" + word2 + ": " + inner2 + "\n"
+
+    return r
+
+# format = 0, returns a list with nothing on the original line
+# format = 1, returns a list with a "|" on the original line
+def multiAns(ans, format = 0):
+    if " " in ans:
+        if format == 1: r += "\n"
+        pList = ans.split()
+        if format == (0 or 1):
+            for item in pList:
+                r += "\t\t\t- " + item + "\n"
+    else:
+        return ans
+    
+    return r
+
 def playStart(modName):
     name = input("What would you like to name this play: ")
 
     return "- name: " + name + "\n" + "\tansible.builtin." + modName + ":\n"
-
-def defYNQuestionAnswer(question):
-    return input(question + " (Y/N)? ").lower() == "y"
 
 def seThings():
     r = ""
@@ -15,202 +83,200 @@ def seThings():
 
     return r
 
-#############################################################################################
+#def get_y_or_n(question):
+def y_or_n_quest(question):
+    """
+    Asks the user a yes or no question and returns True if the user answers "y", False if the user answers "n".
+    """
+    return input(question + " (Y/N)? ").lower() == "y"
+
+#######################################################################################################
 # Above are more generic functions
 #
 # Below are line creators for modules
-#############################################################################################
+#######################################################################################################
 
 def attributes(question):
-    if input(question + " (Y/N)? ").lower() == "y":
-        o += "\t\tattributes" + input("What attributes do you want (see documentation): ") + "\n"
+    # r = ""
+    # generic2PartLine("attributes", question, input("What attributes do you want (see documentation): "))
+    # if y_or_n_quest(question):
+    #     r = "\t\tattributes" + input("What attributes do you want (see documentation): ") + "\n"
+    return generic2PartLine("attributes", question, input("What attributes do you want (see documentation): "))
 
 def backup():
-    r = ""
-    if input("Do you want to automatically create a backup file (Y/N)? ").lower() == "y":
-        r = "\t\tbackup: true\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to automatically create a backup file"):
+    #     r = "\t\tbackup: true\n"
+    return generic2PartLine("backup", "Do you want to automatically create a backup file", "true")
 
 def decrypt():
-    r = ""
-
-    if input("Do you NOT want to auto decrypt the source files (Y/N)? ").lower() == "y":
-        r = "\t\tdecrypt: false\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you NOT want to auto decrypt the source files"):
+    #     r = "\t\tdecrypt: false\n"
+    return generic2PartLine("decrypt", "Do you NOT want to auto decrypt the source files", "false")
 
 def group():
-    r = ""
-    if input("Do you want the resulting file system to be owned by a specified group (Y/N)? ").lower() == "y":
-        r = "\t\tgroup: " + input("Enter the group name you want to own the resulting file: ") + "\n"
+    # r = ""
+    # if y_or_n_quest("Do you want the resulting file system to be owned by a specified group"):
+    #     r = "\t\tgroup: " + input("Enter the group name you want to own the resulting file: ") + "\n"
+    return generic2PartLine("group", "Do you want the resulting file system to be owned by a specified group", input("Enter the group name you want to own the resulting file: "))
 
-    return r
+# def hour():
+#     r = ""
+#     if y_or_n_quest("Do you want to specify an amount of hours"):
+#         r = "\t\thour: " + input("Enter the amount of hours: ") + "\n"
 
-def hour():
-    r = ""
-    if input("Do you want to specify an amount of hours (Y/N)? ").lower() == "y":
-        r = "\t\thour: " + input("Enter the amount of hours: ") + "\n"
-    
-    return r
+#     return r
 
 def minute():
-    r = ""
-    if input("Do you want to specify an amount of minutes (Y/N)? ").lower() == "y":
-        r = "\t\tminute: " + input("Enter the amount of minutes: ") + "\n"
-    
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an amount of minutes"):
+    #     r = "\t\tminute: " + input("Enter the amount of minutes: ") + "\n"
+    return generic2PartLine("minute", "Do you want to specify an amount of minutes", input("Enter the amount of minutes: "))
 
 def mode():
-    r = ""
+    # r = ""
+    # if y_or_n_quest("Do you want to specify the permissions the resulting file should have"):
+    #     r = "\t\tmode: " + input("Enter the permissions for the resulting file: ") + "\n"
+    return generic2PartLine("mode", "Do you want to specify the permissions the resulting file should have", input("Enter the permissions for the resulting file: "))
 
-    if input("Do you want to specify the permissions the resulting file should have (Y/N)? ").lower() == "y":
-        r = "\t\tmode: " + input("Enter the permissions for the resulting file: ") + "\n"
+def msg(question):
+    # r = ""
+    # if y_or_n_quest(question):
+    #     r += "\t\tmsg: " + input("Enter the message: ") + "\n"
+    return generic2PartLine("msg", question, input("Enter the message: "))
 
+def packagesName():
+    r = "\t\tname:"
+    packages = input("Enter the name(s) of the package(s), with spaces separating multiple package names: ")
+    if " " in packages:
+        r += "\n"
+        pList = packages.split()
+        for item in pList:
+            r += "\t\t\t- " + item + "\n"
+    else:
+        r += packages
+    
     return r
 
 def owner():
-    r = ""
-
-    if input("Do you want to specify the user to own the resulting file (Y/N)? ").lower() == "y":
-        r = "\t\towner: " + input("Enter the username of the new owner: ") + "\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to specify the user to own the resulting file"):
+    #     r = "\t\towner: " + input("Enter the username of the new owner: ") + "\n"
+    return generic2PartLine("owner", "Do you want to specify the user to own the resulting file", input("Enter the username of the new owner: "))
 
 def regexp(question):
-    r = ""
-
-    if input(question + " (Y/N)? ").lower() == "y":
-            o += "\t\tregexp: " + input("Enter the regular expression: ") + "\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest(question + ""):
+    #     r = "\t\tregexp: " + input("Enter the regular expression: ") + "\n"
+    return generic2PartLine("regexp", question, input("Enter the regular expression: "))
 
 # NOT APPLICABLE YET pass in "true" for the originating machine being default, or pass in "r" for the remote machine being false
 def remote_src():
     r = ""
+    
+    # choice = input("Are the files being worked with located on the remote machine").lower()
 
-    choice = input("Are the files being worked with located on the remote machine (Y/N)? ").lower()
+    # if choice == "y":
+    #     r = "\t\tremote_src: true"
+    # elif choice == "n":
+    #     r = "\t\tremote_src: false"
 
-    if choice == "y":
+    if y_or_n_quest("Are the files being worked with located on the remote machine"):
         r = "\t\tremote_src: true"
-    elif choice == "n":
+    else:
         r = "\t\tremote_src: false"
 
     return r
 
 def second():
-    r = ""
-    if input("Do you want to specify an amount of seconds (Y/N)? ").lower() == "y":
-        r = "\t\tsecond: " + input("Enter the amount of seconds: ") + "\n"
-    
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an amount of seconds"):
+    #     r = "\t\tsecond: " + input("Enter the amount of seconds: ") + "\n"
+    return generic2PartLine("second", "Do you want to specify an amount of seconds", input("Enter the amount of seconds: "))
 
 def selevel():
-    r = ""
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an SELinux level/range/MLS/MCS for this action"):
+    #     r = "\t\tselevel: " + input("Enter the SELinux level/range: ") + "\n"
+    return generic2PartLine("selevel", "Do you want to specify an SELinux level/range/MLS/MCS for this action", input("Enter the SELinux level/range: "))
 
-    if input("Do you want to specify an SELinux level/range/MLS/MCS for this action (Y/N)? ").lower() == "y":
-        r = "\t\tselevel: " + input("Enter the SELinux level/range: ") + "\n"
-
-    return r
-
-def serole(): 
-    r = ""
-
-    if input("Do you want to specify an SELinux role for this action (Y/N)? ").lower() == "y":
-        r = "\t\tserole: " + input("Enter the SELinux role: ") + "\n"
-
-    return r
+def serole():
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an SELinux role for this action"):
+    #     r = "\t\tserole: " + input("Enter the SELinux role: ") + "\n"
+    return generic2PartLine("serole", "Do you want to specify an SELinux role for this action", input("Enter the SELinux role: "))
 
 def setype():
-    r = ""
-
-    if input("Do you want to specify an SELinux type for this action (Y/N)? ").lower() == "y":
-        r = "\t\tsetype: " + input("Enter the SELinux type: ") + "\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an SELinux type for this action"):
+    #     r = "\t\tsetype: " + input("Enter the SELinux type: ") + "\n"
+    return generic2PartLine("setype", "Do you want to specify an SELinux type for this action", input("Enter the SELinux type: "))
 
 def seuser():
-    r = ""
+    # r = ""
+    # if y_or_n_quest("Do you want to specify an SELinux user for this action"):
+    #     r = "\t\tseuser: " + input("Enter the SELinux user: ") + "\n"
+    return generic2PartLine("seuser", "Do you want to specify an SELinux user for this action", input("Enter the SELinux user: "))
 
-    if input("Do you want to specify an SELinux user for this action (Y/N)? ").lower() == "y":
-        r = "\t\tseuser: " + input("Enter the SELinux user: ") + "\n"
+# def state(options):
+#     if y_or_n_quest("Do you want to specify a state for this operation"):
+#         i = 1
+#         for o in options:
+#             print(str(i) + ". " + o)
 
-    return r
+#             i += 1
 
-# o += PWH.state(["", "", ""])
-def state(options):
+#         choice = int(input("Which option "))
 
-    if True: #input("Do you want to specify a state for this operation (Y/N)? ").lower() == "y":
-        i = 1
-        for o in options:
-            print(str(i) + ". " + o)
-
-            i += 1
-        
-        choice = int(input("Which option "))
-
-        return "\t\tstate: " + options[choice - 1]
+#         return "\t\tstate: " + options[choice - 1]
 
 
 
-        #print(options[choice])
-        # if options[choice] == ans:
-        #     return options[choice]
+#         #print(options[choice])
+#         # if options[choice] == ans:
+#         #     return options[choice]
 
 
 # This function only works if the default of state is "present", and the only other option is "absent"
-def stateAbsentPresent():
-    r = ""
-
-    if input("Do you want to ensure that the key is absent/revoked (Y/N)? ").lower() == "y":
-        r = "\t\tstate: absent\n"
-
-    return r
+def stateAbsentPresent(question):
+    # r = ""
+    # if y_or_n_quest(question):
+    #     r = "\t\tstate: absent\n"
+    return generic2PartLine("state", question, "absent")
 
 def unsafe_writes():
-    r = ""
-
-    if input("Do you want to allow unsafe writes to occur, only if the atomic operations fail (Y/N)? ").lower() == "y":
-        r = "\t\tunsafe_writes: true\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to allow unsafe writes to occur, only if the atomic operations fail"):
+    #     r = "\t\tunsafe_writes: true\n"
+    return generic2PartLine("unsafe_writes", "Do you want to allow unsafe writes to occur, only if the atomic operations fail", "true")
 
 def update_cache():
-    r = ""
-
-    if input("Do you want to update the apt cache (Y/N)? ").lower() == "y":
-        r = "\t\tupdate_cache: true\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to update the apt cache"):
+    #     r = "\t\tupdate_cache: true\n"
+    return generic2PartLine("update_cache", "Do you want to update the apt cache", "true")
 
 def update_cache_retries():
-    r = ""
-
-    if input("Do you want to set an amount of retries to update the apt cache (Y/N)? ").lower() == "y":
-            r = "\t\tupdate_cache_retries: " + input("How many retries for updating the apt cache? ") + "\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to set an amount of retries to update the apt cache"):
+    #     r = "\t\tupdate_cache_retries: " + input("How many retries for updating the apt cache? ") + "\n"
+    return generic2PartLine("update_cache_retries", "Do you want to set an amount of retries to update the apt cache", input("How many retries for updating the apt cache? "))
 
 def update_cache_retry_max_delay():
-    r = ""
-
-    if input("Do you want to set how long in between each apt cache update attempt (Y/N)? ").lower() == "y":
-        r = "\t\tupdate_cache_retry_max_delay: " + input("How many seconds do you want in between each attempt to update the apt cache? ") + "\n"
-    
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to set how long in between each apt cache update attempt"):
+    #     r = "\t\tupdate_cache_retry_max_delay: " + input("How many seconds do you want in between each attempt to update the apt cache? ") + "\n"
+    return generic2PartLine("update_cache_retry_max_delay", "Do you want to set how long in between each apt cache update attempt", input("Enter the amount of seconds you want between each apt cache update attempt: "))
 
 def validate():
-    r = ""
-
-    if input("Do you want to specify a validation command to be ran, before the resulting file gets copied into place (Y/N)? ").lower() == "y":
-        r = "\t\tvalidate: " + input("Enter the validation command: ") + "\n"
-
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to specify a validation command to be ran, before the resulting file gets copied into place"):
+    #     r = "\t\tvalidate: " + input("Enter the validation command: ") + "\n"
+    return generic2PartLine("validate", "Do you want to specify a validation command to be ran, before the resulting file gets copied into place", input("Enter the validation command: "))
 
 def validate_certs():
-    r = ""
-
-    if input("Do you want to disable SSL certificate validation (Y/N)? ").lower() == "y":
-        r = "\t\tvalidate_certs: false\n"
-    
-    return r
+    # r = ""
+    # if y_or_n_quest("Do you want to disable SSL certificate validation"):
+    #     r = "\t\tvalidate_certs: false\n"
+    return generic2PartLine("validate_certs", "Do you want to disable SSL certificate validation", "false")

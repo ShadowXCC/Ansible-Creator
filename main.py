@@ -4,12 +4,15 @@ import Functions.menus as menus
 import Functions.iniInventoryWriter as IIW
 import Functions.yamlInventoryWriter as YIW
 import Functions.playWriters as PW
+import Functions.playWriterHelpers as PWH
 import Functions.searchModules as search
 import Functions.yamlFormatter as formatter
 
+invFN = "inventory.yml"
+
 print("----------------------------------------------------------------------------------------------------------")
 print("WARNING: THIS PROGRAM WILL OVERWRITE ANY FILES IN THIS DIRECTORY NAMED \"inventory.yaml\" or \"playbook.yaml\"")
-print("WARNING: THIS PROGRAM ASSUMES A MINIMAL ANSIBLE VERSION OF 2.0 (January 2016)")
+print("WARNING: THIS PROGRAM ASSUMES A MINIMAL ANSIBLE VERSION OF 2.4 (October 1st 2017)")
 print("----------------------------------------------------------------------------------------------------------")
 
 print("Hello, welcome to the Ansible Generator")
@@ -17,7 +20,7 @@ print("Please note, all words in parentheses are valid options for responding to
 
 while True:
     cMM = input(menus.mainMenu())
-    print() #This just prints a new line for spacing
+    print() # Prints a new line for spacing
 
     if cMM == "1":
         cInvFormat = input("Ini Format (INI) or Yaml Format (YAML) or (?) ")
@@ -40,16 +43,15 @@ while True:
                     cont = False
 
                 elif choice.lower() == "w":
-                    f = open("inventory.yml", "w")
-                    f.write(holder)
-                    f.close()
+                    with open(invFN, "w", encoding='UTF-8') as f:
+                        f.write(holder)
 
                     cont = False
 
                 else:
                     print("Incorrect input, try again.")
 
-        if "yaml" in cInvFormat.lower():
+        elif "yaml" in cInvFormat.lower():
             cont = True
             holder = ""
             titleAlreadySelected = False
@@ -74,18 +76,15 @@ while True:
                     cont = False
 
                 elif choice.lower() == "w":
-                    f = open("inventory.yml", "w")
-                    f.write(holder)
-                    f.close()
+                    with open(invFN, "w", encoding='UTF-8') as f:
+                        f.write(holder)
 
                     cont = False
 
                 else:
                     print("Incorrect input, try again.")
-    if cMM == "2":                
-        a = True
-        while a:
-            #print("Warning: This search feature assumes an exact match currently. Example, searching for \"apt repository\" will not find \"apt_repository\"")
+    elif cMM == "2":
+        while True:
             searchTerm = input("What kind of play do you want to create (\"X\" to cancel): ")
             if searchTerm.lower() != "x":
                 options = search.searchModules(searchTerm)
@@ -93,10 +92,9 @@ while True:
                 print("Matches for \"" + searchTerm + "\":")
                 i = 1
                 for item in options:
-                    #add something here to print out when there are no matches
                     print(str(i) + ". " + item)
                     i += 1
-                
+
                 optionLength = len(options)
                 selection = -1
                 if optionLength > 1:
@@ -104,37 +102,38 @@ while True:
                 elif optionLength == 1:
                     selection = 0
                 elif optionLength == 0:
-                    choice = input("Search term not found, try again? (Y/N): ")
+                    choice = PWH.y_or_n_quest("Search term not found, try again")
                     if choice.lower == "n":
                         a = False
 
-                if a != False and selection != -1:
+                if selection != -1: #a != False and selection != -1:
                     selection = int(selection)
                     module = options[selection - 1]
 
-                    if input("\"" + module + "\" play selected. Is this correct? (Y/N): ").lower() == "y":
-                        print(PW.funcs[module]()) #https://stackoverflow.com/questions/12495218/using-user-input-to-call-functions
+                    if PWH.y_or_n_quest("\"" + module + "\" play selected. Is this correct?"):
+                        functionCallVal = PW.funcs[module]()
+                        if functionCallVal != None: print(functionCallVal)#print(PW.funcs[module]()) #https://stackoverflow.com/questions/12495218/using-user-input-to-call-functions
                     else:
-                        if input("Would you like to search again (Y/N): ").lower() != "y":
-                            a = False
+                        if PWH.y_or_n_quest("Would you like to search again"):
+                            break
             else:
-                a = False
+                break
 
         # Search for play ✔
         # Allow user to select from search results ✔
         # Prompt user for all info need to create proper formatted play
         # Output play to user ✔ and possibly to file if they want
-    
-    if cMM == "3":
-        formatter.dowork(input("What is the name of the file: "))
+
+    elif cMM == "3":
+        formatter.toFile(input("What is the name of the file: "))
         print()
 
 
 
-    if cMM.lower() == "x":
+    elif cMM.lower() == "x":
         print()
         sys.exit()
-    
+
     # else:
     #     print("Else1")
     # val = input("Please enter a search term")
