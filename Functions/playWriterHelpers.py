@@ -26,16 +26,16 @@ def ans_from_list(quest, choices, module=""):
 
         c = int(input("Which option: "))
 
-    if module.lower() == "num":
-        return c
-    elif not module:
-        return "\t\t" + module + ": " + choices[c - 1]
-    else:
-        return choices[c - 1]
+        if module.lower() == "num":
+            return c
+        elif not module:
+            return "\t\t" + module + ": " + choices[c - 1]
+        else:
+            return choices[c - 1]
 
-        #print(options[choice])
-        # if options[choice] == ans:
-        #     return options[choice]
+            #print(options[choice])
+            # if options[choice] == ans:
+            #     return options[choice]
 
 def genericLine(word, inner):
     return "\t\t" + word + ": " + inner + "\n"
@@ -47,11 +47,26 @@ def generic2PartLine(word, outer, inner):
 
     return r
 
+def generic2PartLineWithInput(word, outer, question):
+    r = ""
+    if y_or_n_quest(outer):
+        r += "\t\t" + word + ": " + input(question) + "\n"
+
+    return r
+
 def generic2Part2Lines(word1, outer, inner1, word2, inner2):
     r = ""
     if y_or_n_quest(outer):
         r += "\t\t" + word1 + ": " + inner1 + "\n"
         r += "\t\t" + word2 + ": " + inner2 + "\n"
+
+    return r
+
+def generic2PartWithInput(word1, outer, question1, word2, question2):
+    r = ""
+    if y_or_n_quest(outer):
+        r += "\t\t" + word1 + ": " + question1 + "\n"
+        r += "\t\t" + word2 + ": " + question2 + "\n"
 
     return r
 

@@ -220,10 +220,12 @@ def blockinfile():
     o = ""
     o += PWH.playStart("blockinfile")
 
-    o += "\t\tpath: " + input("What is the path to the file being edited: ") + "\n"
+    o += PWH.genericLine("path", input("What is the path to the file being edited: "))
+    # o += "\t\tpath: " + input("What is the path to the file being edited: ") + "\n"
+
+
     i = input("Enter the text (with newlines/enters replaced with a \"|\"): ").replace("|", "\n\t\t\t")
     o += "\t\tblock: |\n\t\t\t" + i + "\n"
-
     c = PWH.ans_from_list("How do you want to specify where the text being added goes?", ["Insert Before", "Insert After"], "num")
     if c == 1:
         c = PWH.ans_from_list("", ["EOF (End of File)", "Literal Match/Regular Expression (Regex)"], "num")
@@ -240,7 +242,9 @@ def blockinfile():
         else:
             c = input("What match/expression should your text be interted before: ")
 
-        o += "\t\tinsertbefore: " + c + "\n"
+        o += PWH.genericLine("insertbefore", c)
+        # o += "\t\tinsertbefore: " + c + "\n"
+
 
     print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html#parameter-attributes")
     o += PWH.attributes("Do you want to set any attributes for the file being worked on")
@@ -249,12 +253,17 @@ def blockinfile():
     if PWH.y_or_n_quest("Do you want to include a line that marks the beginning and end of the text block being managed by Ansible"):
         print("It is good practice to make your marker a comment, including whatever include appropriate to whatever file type you are modifying.")
         print("Make sure to include the value \"{{mark}}\" within your chosen marker line.")
-        o += "\t\tmarker: \"" + input("Enter the desired marker line: ") + "\"\n"
-        o += "\t\tmarker_begin: " + input("In the beginning marker line, what should \"{{mark}}\" be replaced with: ") + "\n"
-        o += "\t\tmarker_end: " + input("In the ending marker line, what should \"{{mark}}\" be replaced with: ") + "\n"
 
-    if PWH.y_or_n_quest("Do you want this play to create a file, if it does not already exist"):
-        o += "\t\tcreate: true\n"
+        o += PWH.genericLine("marker", input("Enter the desired marker line: "))
+        o += PWH.genericLine("marker_begin", input("In the beginning marker line, what should \"{{mark}}\" be replaced with: "))
+        o += PWH.genericLine("marker_end", input("In the ending marker line, what should \"{{mark}}\" be replaced with: "))
+        # o += "\t\tmarker: \"" + input("Enter the desired marker line: ") + "\"\n"
+        # o += "\t\tmarker_begin: " + input("In the beginning marker line, what should \"{{mark}}\" be replaced with: ") + "\n"
+        # o += "\t\tmarker_end: " + input("In the ending marker line, what should \"{{mark}}\" be replaced with: ") + "\n"
+
+    o += PWH.generic2PartLine("create", "Do you want this play to create a file, if it does not already exist", "true")
+    # if PWH.y_or_n_quest("Do you want this play to create a file, if it does not already exist"):
+    #     o += "\t\tcreate: true\n"
     o += PWH.group()
     o += PWH.mode()
     o += PWH.owner()
@@ -270,16 +279,25 @@ def command():
     o = ""
     o += PWH.playStart("command")
 
-    # argv
-    # chdir
-    # cmd
-    # creates
-    # free_form
-    # removes
-    # stdin
-    # stdin_add_newline
-    # strip_empty_ends
-
+    # # argv
+    # o += PWH.genericLine("", )
+    # # chdir
+    # o += PWH.genericLine("", )
+    # # cmd
+    # o += PWH.genericLine("", )
+    # # creates
+    # o += PWH.genericLine("", )
+    # # free_form
+    # o += PWH.genericLine("", )
+    # # removes
+    # o += PWH.genericLine("", )
+    # # stdin
+    # o += PWH.genericLine("", )
+    # # stdin_add_newline
+    # o += PWH.genericLine("", )
+    # # strip_empty_ends
+    # o += PWH.genericLine("", )
+    
     return o
 
 def copy():
@@ -287,23 +305,31 @@ def copy():
     o = ""
     o += PWH.playStart("copy")
     #dest
+    o += PWH.genericLine("", )
 
     print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html")
     o += PWH.attributes("Do you want the copied files to have any specific attributes?")
     o += PWH.backup()
     # checksum 
+    o += PWH.genericLine("", )
     # content 
+    o += PWH.genericLine("", )
     o+= PWH.decrypt()
     # directory_mode 
+    o += PWH.genericLine("", )
     # follow 
+    o += PWH.genericLine("", )
     # force 
+    o += PWH.genericLine("", )
     o += PWH.group()
     # local_follow 
+    o += PWH.genericLine("", )
     o += PWH.mode()
     o += PWH.owner()
     o += PWH.remote_src()    
     o += PWH.seThings()
     # src 
+    o += PWH.genericLine("", )
     o += PWH.unsafe_writes()
     o += PWH.validate()
 
@@ -314,11 +340,10 @@ def cron():
     o = ""
     o += PWH.playStart("cron")
 
-    #name
-
+    #name    
 
     o += PWH.backup()
-    # cron_file 
+    # cron_file
     # day 
     # disabled 
     # env 
@@ -450,7 +475,6 @@ def fetch():
 
     o += PWH.genericLine("src", input("Enter the remote path containing the target"))
     o += PWH.genericLine("dest", input("Enter the local location where you want the target to be saved"))
-
 
     o += PWH.generic2PartLine("fail_on_missing", "Do you want the task to still succeed if it cannot interact with the target file", "false")
     #o += PWH.genericLine("fail_on_missing", "For some reason, do you want the task to still succeed if it cannot see the target file", "")
@@ -840,6 +864,7 @@ def package():
     o += PWH.ans_from_list("state", ["present", "absent"], "package")
 
     print("NOTE: The default selection is usually very good, and is recommended to be used.\n Only specify a package manager if needed.")
+    
     if PWH.y_or_n_quest("Do you want to specify a package manager to be used for this package installation"):
         print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html#parameter-use")
         o += "\t\tuse: " + input("Enter the package manager that you want to use: ") + "\n"
@@ -851,10 +876,14 @@ def package_facts():
     o += PWH.playStart("package_facts")
 
     print("NOTE: The default selection is usually very good, and is recommended to be used.\n Only specify a package manager if needed.")
-    if PWH.y_or_n_quest("Do you want to specify a package manager to use in querying for package information"):
-        o += "\t\tmanager: " + PWH.ans_from_list("Which package manager do you want to use", ["auto", "rpm", "apt", "portage", "pkg", "pacman", "apk", "pkg_info"]) + "\n"
-    if PWH.y_or_n_quest("Do you want to specify a querying strategy?"):
-        o += "\t\tstrategy: " + PWH.ans_from_list("Which querying strategy do you want to use?", ["first", "all"]) + "\n"
+    o += PWH.generic2PartLine("manager", "Do you want to specify a package manager to use in querying for package information", 
+                              PWH.ans_from_list("Which package manager do you want to use", ["auto", "rpm", "apt", "portage", "pkg", "pacman", "apk", "pkg_info"]))
+    # if PWH.y_or_n_quest("Do you want to specify a package manager to use in querying for package information"):
+    #     o += "\t\tmanager: " + PWH.ans_from_list("Which package manager do you want to use", ["auto", "rpm", "apt", "portage", "pkg", "pacman", "apk", "pkg_info"]) + "\n"
+    o += PWH.generic2PartLine("strategy", "Do you want to specify a querying strategy?", 
+                              PWH.ans_from_list("Which querying strategy do you want to use?", ["first", "all"]))
+    # if PWH.y_or_n_quest("Do you want to specify a querying strategy?"):
+    #     o += "\t\tstrategy: " + PWH.ans_from_list("Which querying strategy do you want to use?", ["first", "all"]) + "\n"
 
     return o
 
@@ -864,25 +893,30 @@ def pause():
 
     #print("https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pause_module.html#parameter-echo")
     print("NOTE: If you specify a message to be echoed an amount of time, the echoed message will be ignored.")
-    if PWH.y_or_n_quest("Do you want the ability for input to be shown during the pause"):
-        o += "\t\techo: false"
-    if PWH.y_or_n_quest("Do you want to specify a prompt to be shown during the pause"):
-        o += "\t\tprompt: " + input("What should the prompt be: ") + "\n"
+    o += PWH.generic2PartLine("echo", "Do you want the ability for input to be shown during the pause", "false")
+    # if PWH.y_or_n_quest("Do you want the ability for input to be shown during the pause"):
+    #     o += "\t\techo: false"
+    o += PWH.generic2PartLine("prompt", "Do you want to specify a prompt to be shown during the pause", input("What should the prompt be: "))
+    # if PWH.y_or_n_quest("Do you want to specify a prompt to be shown during the pause"):
+    #     o += "\t\tprompt: " + input("What should the prompt be: ") + "\n"
     if PWH.y_or_n_quest("Do you want to specify an amount of time to pause playbook execution for"):
         mins = input("How many minutes to pause for: ")
         secs = input("How many seconds to pause for: ")
         if mins > 0:
-            o += "\t\tminutes: " + input("") + "\n"
+            o += PWH.genericLine("minutes", mins)
+            #o += "\t\tminutes: " + input("") + "\n"
         if secs > 0:
-            o += "\t\tseconds: " + input("") + "\n"
+            o += PWH.genericLine("seconds", secs)
+            #o += "\t\tseconds: " + input("") + "\n"
 
     return o
 
 def ping():
     o = ""
     o += PWH.playStart("ping")
-    if PWH.y_or_n_quest("Do you want this function to force an exception"):
-        o += "\t\tdata: crash\n"
+    o += PWH.generic2PartLine("data", "Do you want this play to force an exception", "crash")
+    # if PWH.y_or_n_quest("Do you want this function to force an exception"):
+    #     o += "\t\tdata: crash\n"
     return o
 
 def pip():
@@ -890,7 +924,7 @@ def pip():
     o += PWH.playStart("pip")
 
     name = input("Enter the name of the library being modified (X to skip): ")
-    if name.lower() != "x": o += "\t\tname: " + name + "\n"
+    if name.lower() != "x": o += PWH.genericLine("name", name) #o += "\t\tname: " + name + "\n"
     if PWH.y_or_n_quest("Do you want to specify a version of the library being installed"):
         o += "\t\tversion: " + input("Enter the version number (ex: 13.3.11): ") + "\n"
 
@@ -910,13 +944,17 @@ def pip():
     if PWH.y_or_n_quest("Do you want to specify a version of the library being installed"):
         o += "\t\tversion: " + input("Enter the version number (ex: 13.3.11): ") + "\n"
     if PWH.y_or_n_quest("Do you want to create a virtual environment"):
-        o += "\t\tvirtualenv: " + input("Enter the directory path for the desired location: ") + "\n"
-        if PWH.y_or_n_quest("Do you want to specify a command/pathname to use in the creation of the virtual environment"):
-            o += "\t\virtualenv_command: " + input("Enter the desired command/pathname: ") + "\n"
-        if PWH.y_or_n_quest("Do you want to specify a Python version for this play"):
-            o += "\t\tvirtualenv_python: python" + input("Enter just the version number (ex: 3.5 or 2.7): ") + "\n"
-        if PWH.y_or_n_quest("Do you want the virtual environment to inherit packages from the global site-packages directory"):
-            o += "\t\tvirtualenv_site_packages : true\n"
+        o += PWH.genericLine("virtualenv", input("Enter the directory path for the desired location: "))
+        # o += "\t\tvirtualenv: " + input("Enter the directory path for the desired location: ") + "\n"
+        o += PWH.generic2PartLine("virtualenv_command", "Do you want to specify a command/pathname to use in the creation of the virtual environment", input("Enter the desired command/pathname: "))
+        # if PWH.y_or_n_quest("Do you want to specify a command/pathname to use in the creation of the virtual environment"):
+        #     o += "\t\tvirtualenv_command: " + input("Enter the desired command/pathname: ") + "\n"
+        o += PWH.generic2PartLine("virtualenv_python", "Do you want to specify a Python version for this play", input("Enter just the version number (ex: 3.5 or 2.7): "))
+        # if PWH.y_or_n_quest("Do you want to specify a Python version for this play"):
+        #     o += "\t\tvirtualenv_python: python" + input("Enter just the version number (ex: 3.5 or 2.7): ") + "\n"
+        o += PWH.generic2PartLine("virtualenv_site_packages", "Do you want the virtual environment to inherit packages from the global site-packages directory", "true")
+        # if PWH.y_or_n_quest("Do you want the virtual environment to inherit packages from the global site-packages directory"):
+        #     o += "\t\tvirtualenv_site_packages : true\n"
 
     return o
 
