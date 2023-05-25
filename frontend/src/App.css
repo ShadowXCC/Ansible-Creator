@@ -47,6 +47,15 @@ body {
   background-color: #EDF2F7;
   color: #2D3748;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("https://uploads-ssl.webflow.com/5a9ee6416e90d20001b20038/635a92326c1c8e865cc7fd97_horizontal%20(8).svg");
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -86,4 +95,92 @@ h1 {
 
 .content .value {
   font-style: italic;
+}
+
+
+/*
+Header
+*/
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+#header {
+    background: #27284d;
+    width: 100%;
+    height: 60px;
+    top: 0;
+}
+#header ul {
+  list-style: none;
+  word-spacing: 30px;
+  display: flex;
+  gap: 1rem;
+}
+#header li {
+    text-transform: uppercase;
+}
+#header a {
+    font-size: 18pt;
+    color: #e8ddce;
+    text-decoration: none;
+    font-weight: 200;
+}
+#header a:hover {
+    color: #a53e4f;
+    transition: 1s;
+}
+#logo {
+    margin: 4px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    background: url(https://i.ibb.co/KbrsCSf/heartico.png) no-repeat center;
+    display: block;
+}
+#header nav {
+    float: right;
+    padding-right: 20px;
+    font-family: 'Raleway', sans-serif;
+}
+#menu-icon {
+    position: absolute;
+    left: 20px;
+    background-size: contain;
+    display: hidden;
+    width: 32px;
+    height: 32px;
+    padding: 13px 0 13px 0;
+}
+
+/* @media only screen and (max-width:900px) {
+    #header {
+        position: absolute;
+    }
+    #menu-icon {
+        display: inline-block;
+    }
+    nav ul, nav:active ul {
+        display: none;
+        position: absolute;
+        padding: 10px;
+        margin: 0;
+        background: #27284d;
+        right: 10px;
+        width: 35%;
+    }
+    nav:hover ul {
+        display: block;
+    }
+    nav li {
+        text-align: center;
+        width: 100%;
+        margin: 0;
+    
+    }  
+} */
+
+.cm-theme-light {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 0;
 }
