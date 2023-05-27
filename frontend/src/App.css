@@ -203,10 +203,11 @@ Header
 } */
 
 .cm-container {
-  offset: 5px;
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  position: fixed;
+  overflow: hidden;
 }
 
 .cm-theme-light {
