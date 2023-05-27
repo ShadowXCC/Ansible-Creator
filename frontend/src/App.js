@@ -12,7 +12,7 @@ const header =
   <header id="header">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <nav>
-      <a href="/"><img id="menu-icon" src={ logo } alt="Company's Logo"/></a>
+      <a href="/"><img id="menu-logo" src={ logo } alt="Company's Logo"/></a>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/Products">Products</a></li>
@@ -23,9 +23,15 @@ const header =
     </nav>
   </header>
 
-const ansibleButtons =
+const ansibleOptions =
   <div>
-    <></>
+    <form action="/action_page.php">
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="fname"/><br/><br/>
+      <label for="lname">Last name:</label>
+      <input type="text" id="lname" name="lname"/><br/><br/>
+      <input type="submit" value="Submit"/>
+    </form>
   </div>
 
 var defaultYAML = "---\n- name: Example ansible play\n\thosts: You decide!\n\tremote_user: toor"
@@ -45,26 +51,30 @@ const codeMirror =
 
 const homePage =
   <div class="">
-    {}
+    {header}
   </div>
 
 const votingPage =
   <div class="">
-    {}
+    {header}
   </div>
 
 const paidAnsiblePage =
   <div class="container">
     {header}
-    {ansibleButtons}
-    {codeMirror}
+    <div class="l1">
+      {ansibleOptions}
+      {codeMirror}
+    </div>
   </div>
 
 const freeAnsiblePage =
   <div class="container">
     {header}
-    {ansibleButtons}
-    {codeMirror}
+    <div class="l1">
+      {ansibleOptions}
+      {codeMirror}
+    </div>
   </div>
 
 var toRender
